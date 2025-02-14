@@ -1,6 +1,6 @@
 {
-  "name": "vite-project",
-  "private": true,
+  "name": "repo-image-viewer",
+  "description": "A react web application for previewing images from a repository",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
