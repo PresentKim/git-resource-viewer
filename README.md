@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+# Repo Image Viewer  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A react web application for previewing images from a given GitHub repository URL.  
 
-Currently, two official plugins are available:
+## 🚀 Features  
+- Fetches image files (PNG, JPG, GIF, SVG, etc.) from public GitHub repositories  
+- Displays images in a grid-based gallery  
+- Supports direct input of GitHub repository URLs  
+- Lightweight and fast with React and Vite  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Installation  
+1. Clone the repository:  
+   ```sh
+   git clone https://github.com/PresentKim/repo-image-viewer.git
+   cd repo-image-viewer
+   ```
+2. Install dependencies:  
+   ```sh
+   npm install
+   ```
+3. Start the development server:  
+   ```sh
+   npm run dev
+   ```
 
-## Expanding the ESLint configuration
+## 🛠️ Usage  
+1. Enter the GitHub repository URL in the input field.  
+2. The app fetches all image files from the repository.  
+3. View images in the gallery.  
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🏗️ Technologies  
+- **React**: `^19.0.0`  
+- **React-DOM**: `^19.0.0`  
+- **Vite**: `^6.1.0`  
+- **TypeScript**: `~5.7.2`  
+- **ESLint**: `^9.19.0`  
+- **@vitejs/plugin-react**: `^4.3.4`  
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 📜 License  
+This project is licensed under the MIT License.  
