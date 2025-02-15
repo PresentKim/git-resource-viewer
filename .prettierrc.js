@@ -1,4 +1,6 @@
-{
+import * as tailwindcssPlugin from 'prettier-plugin-tailwindcss'
+
+export default {
   "bracketSpacing": false,
   "singleQuote": true,
   "bracketSameLine": true,
@@ -14,5 +16,6 @@
         "parser": "typescript"
       }
     }
-  ]
+  ],
+  "plugins": [tailwindcssPlugin]
 }
