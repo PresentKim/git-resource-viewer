@@ -25,3 +25,8 @@ public
 .yarn
 .pnp.*
 yarn.lock
+
+# shadcn/ui
+components.json
+src/components/ui
+src/lib/utils.ts
