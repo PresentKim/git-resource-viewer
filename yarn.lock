@@ -1301,6 +1301,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"class-variance-authority@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "class-variance-authority@npm:0.7.1"
+  dependencies:
+    clsx: "npm:^2.1.1"
+  checksum: 10c0/0f438cea22131808b99272de0fa933c2532d5659773bfec0c583de7b3f038378996d3350683426b8e9c74a6286699382106d71fbec52f0dd5fbb191792cccb5b
+  languageName: node
+  linkType: hard
+
 "clsx@npm:^2.1.1":
   version: 2.1.1
   resolution: "clsx@npm:2.1.1"
@@ -2267,6 +2276,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lucide-react@npm:^0.475.0":
+  version: 0.475.0
+  resolution: "lucide-react@npm:0.475.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/9cb17bd4e70da4db104874b6b2e9d9c7e2be9438e9d1c0b2565df0c4d0bdd1add41b7dff3cb60840699ecbd29870c453878b42b69a7c46480def0c9370a852a9
+  languageName: node
+  linkType: hard
+
 "make-fetch-happen@npm:^14.0.3":
   version: 14.0.3
   resolution: "make-fetch-happen@npm:14.0.3"
@@ -2670,18 +2688,21 @@ __metadata:
     "@types/react": "npm:^19.0.8"
     "@types/react-dom": "npm:^19.0.3"
     "@vitejs/plugin-react": "npm:^4.3.4"
+    class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
     eslint: "npm:^9.20.1"
     eslint-config-prettier: "npm:^10.0.1"
     eslint-plugin-react-hooks: "npm:^5.0.0"
     eslint-plugin-react-refresh: "npm:^0.4.18"
     globals: "npm:^15.14.0"
+    lucide-react: "npm:^0.475.0"
     prettier: "npm:^3.5.1"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     react-icons: "npm:^5.4.0"
     tailwind-merge: "npm:^3.0.1"
     tailwindcss: "npm:^4.0.6"
+    tailwindcss-animate: "npm:^1.0.7"
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.22.0"
     vite: "npm:^6.1.0"
@@ -2968,6 +2989,15 @@ __metadata:
   version: 3.0.1
   resolution: "tailwind-merge@npm:3.0.1"
   checksum: 10c0/973d754687ad82d25cb55bf16958153999d080cd68dd0a6c1c74909bd92d05bcca01c24d9642e9e6ec95b3a207b15cd4b32bca49d586f2e743d311358ecb584b
+  languageName: node
+  linkType: hard
+
+"tailwindcss-animate@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "tailwindcss-animate@npm:1.0.7"
+  peerDependencies:
+    tailwindcss: "*"
+  checksum: 10c0/ec7dbd1631076b97d66a1fbaaa06e0725fccfa63119221e8d87a997b02dcede98ad88bb1ef6665b968f5d260fcefb10592e0299ca70208d365b37761edf5e19a
   languageName: node
   linkType: hard
 
