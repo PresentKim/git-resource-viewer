@@ -733,6 +733,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-context-menu@npm:^2.2.6":
+  version: 2.2.6
+  resolution: "@radix-ui/react-context-menu@npm:2.2.6"
+  dependencies:
+    "@radix-ui/primitive": "npm:1.1.1"
+    "@radix-ui/react-context": "npm:1.1.1"
+    "@radix-ui/react-menu": "npm:2.1.6"
+    "@radix-ui/react-primitive": "npm:2.0.2"
+    "@radix-ui/react-use-callback-ref": "npm:1.1.0"
+    "@radix-ui/react-use-controllable-state": "npm:1.1.0"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 10c0/4381b3615206a95687d3c3b3e0d694fe1668f4bd66cdcde7bae958b4a2f833ab77b49d916aa46b721024df44f37f32907d735954862bca602633fa91d1140c4e
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-context@npm:1.1.1":
   version: 1.1.1
   resolution: "@radix-ui/react-context@npm:1.1.1"
@@ -3237,6 +3261,7 @@ __metadata:
   resolution: "repo-image-viewer@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.19.0"
+    "@radix-ui/react-context-menu": "npm:^2.2.6"
     "@radix-ui/react-dropdown-menu": "npm:^2.1.6"
     "@tailwindcss/vite": "npm:^4.0.6"
     "@types/node": "npm:^22.13.4"
