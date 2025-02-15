@@ -37,12 +37,27 @@ A react web application for previewing images from a given GitHub repository URL
 
 ## 🏗️ Technologies
 
-- **React**: `^19.0.0`
-- **React-DOM**: `^19.0.0`
-- **Vite**: `^6.1.0`
-- **TypeScript**: `~5.7.2`
-- **ESLint**: `^9.19.0`
-- **@vitejs/plugin-react**: `^4.3.4`
+### Frontend
+
+- **React** (`^19.0.0`) – Modern UI library with concurrent rendering for optimal performance.
+- **React-DOM** (`^19.0.0`) – Efficient DOM rendering and hydration support.
+- **Vite** (`^6.1.0`) – Fast build tool with HMR (Hot Module Replacement).
+- **TypeScript** (`~5.7.2`) – Static type checking for better maintainability and developer experience.
+
+### Styling
+
+- **Tailwind CSS** (`^4.0.6`) – Utility-first CSS framework for rapid UI development.
+- **tailwind-merge** (`^3.0.1`) – Smart class merging to avoid conflicts.
+- **clsx** (`^2.1.1`) – Conditional class name utility for cleaner component logic.
+
+### Tooling & Code Quality
+
+- **ESLint** (`^9.19.0`) – Enforces code consistency and best practices.
+
+### CI/CD & Deployment
+
+- **GitHub Actions** – Automates build and deployment pipeline to GitHub Pages.
+- **GitHub Pages** – Static hosting for the project.
 
 ## 📜 License
 
