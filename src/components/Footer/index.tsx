@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="flex items-center justify-center w-full my-4 gap-0.5 text-xs text-neutral-500">
+    <footer className="my-4 flex w-full items-center justify-center gap-0.5 text-xs text-neutral-500">
       <a
         href="https://github.com/PresentKim"
         target="_blank"

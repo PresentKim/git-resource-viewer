@@ -1,21 +1,20 @@
-import * as tailwindcssPlugin from 'prettier-plugin-tailwindcss'
-
+/** @type import('prettier').Config */
 export default {
-  "bracketSpacing": false,
-  "singleQuote": true,
-  "bracketSameLine": true,
-  "trailingComma": "es5",
-  "printWidth": 80,
-  "arrowParens": "avoid",
-  "overrides": [
+  bracketSpacing: false,
+  singleQuote: true,
+  bracketSameLine: true,
+  trailingComma: 'es5',
+  printWidth: 80,
+  arrowParens: 'avoid',
+  overrides: [
     {
-      "files": ["*.ts", "*.tsx"],
-      "options": {
-        "semi": false,
-        "trailingComma": "all",
-        "parser": "typescript"
-      }
-    }
+      files: ['*.ts', '*.tsx'],
+      options: {
+        semi: false,
+        trailingComma: 'all',
+        parser: 'typescript',
+      },
+    },
   ],
-  "plugins": [tailwindcssPlugin]
-}
+  plugins: [import('prettier-plugin-tailwindcss')],
+};
