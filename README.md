@@ -19,10 +19,14 @@ A react web application for previewing images from a given GitHub repository URL
 2. Install dependencies:
    ```sh
    npm install
+   or
+   yarn install
    ```
 3. Start the development server:
    ```sh
    npm run dev
+   or
+   yarn dev
    ```
 
 ## 🛠️ Usage
