@@ -1,4 +1,4 @@
-name: Lint via ESLint
+name: Lint via ESLint and Prettier
 
 on:
   pull_request:
@@ -19,5 +19,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Lint code
-        run: yarn lint
+      - name: Lint via ESLint
+        run: yarn eslint:lint
+
+      - name: Lint via Prettier
+        run: yarn format:lint
