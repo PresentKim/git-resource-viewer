@@ -1,4 +1,5 @@
 import {
+  type GithubApiCacheData,
   useGithubApiCacheStore,
   useGithubApiTokenStore,
   useGithubRateLimitStore,
@@ -23,17 +24,15 @@ function useGithubApi<T>() {
       headers['Authorization'] = `Bearer ${githubToken}`
     }
 
-    let cacheValue: T | null = null
+    let cache: GithubApiCacheData<T> | null = null
     if (cacheKey) {
-      const cache = await cacheStore.getItem(cacheKey)
+      cache = await cacheStore.getItem(cacheKey)
       if (cache) {
-        const [etag, value, expiredAt] = cache
-        if (expiredAt < Date.now()) {
-          await cacheStore.removeItem(cacheKey)
-          return value
+        if (cache.expiredAt > Date.now()) {
+          return cache.value
         } else {
-          headers['If-None-Match'] = etag
-          cacheValue = value
+          cacheStore.removeItem(cacheKey)
+          headers['If-None-Match'] = cache.etag
         }
       }
     }
@@ -43,8 +42,8 @@ function useGithubApi<T>() {
       parseInt(response.headers.get('X-Ratelimit-Limit') || '0'),
       parseInt(response.headers.get('X-Ratelimit-Remaining') || '0'),
     )
-    if (response.status === 304 && cacheValue) {
-      return cacheValue
+    if (response.status === 304) {
+      return cache ? cache.value : null
     }
 
     if (response.ok) {
