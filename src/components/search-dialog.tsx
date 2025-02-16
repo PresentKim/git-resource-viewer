@@ -64,7 +64,7 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
      * - owner/repo/commit/ref
      */
     const regexMatch = cleanInput.match(
-      /^(?<owner>[a-z0-9_-]+)\/(?<repo>[a-z0-9_-]+)(?:\/tree\/|\/commit\/|\/?@|\/)?(?<ref>[a-z0-9/_-]+)?$/i,
+      /^(?<owner>[a-z0-9_-]+)\/(?<repo>[a-z0-9_-]+)(?:\/tree\/|\/commit\/|\/?@|\/)?(?<ref>[a-z0-9/_.-]+)?$/i,
     )
     if (!regexMatch || !regexMatch.groups) {
       form.setError('input', {
@@ -115,7 +115,7 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
                   <Input
                     id="input"
                     aria-label="Repository URL input"
-                    className="transition-all text-xs md:text-sm"
+                    className="transition-all text-xs md:text-sm placeholder:text-neutral-600"
                     placeholder="https://github.com/example/test/main"
                     {...field}
                     onInput={onInput}
