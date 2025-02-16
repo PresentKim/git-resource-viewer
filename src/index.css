@@ -55,6 +55,11 @@ body,
   padding: 0;
 }
 
+button:not(:disabled),
+a:not(:disabled) {
+  cursor: pointer;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
