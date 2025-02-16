@@ -97,11 +97,9 @@ export default function BaseLayout() {
           <div
             aria-label="Github API rate limit"
             className="fixed text-xs right-2 bottom-2 select-none">
-            <span aria-label="Github API rate limit remaining">
-              {remaining}
-            </span>
+            <span aria-label="Github API remaining">{remaining || '-'}</span>
             <span>/</span>
-            <span aria-label="Github API rate limit limit">{limit}</span>
+            <span aria-label="Github API limit">{limit || '-'}</span>
           </div>
         </footer>
       </div>
