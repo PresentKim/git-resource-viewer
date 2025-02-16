@@ -10,9 +10,9 @@ function App() {
       <Routes>
         <Route element={<BaseLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFound />} />
           <Route path="/:owner/:repo/*" element={<RepoView />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   )
