@@ -12,10 +12,7 @@ export interface TargetRepository {
   ref: string
 }
 
-export function useTargetRepository(): [
-  TargetRepository,
-  (owner: string, repo: string, ref?: string) => void,
-] {
+export function useTargetRepository() {
   const params = useParams<Params>() // extracting repoId from params
   const navigate = useNavigate()
 
@@ -25,9 +22,13 @@ export function useTargetRepository(): [
     ref: params['*'] ?? '',
   }
 
-  const setTargetRepository = (owner: string, repo: string, ref?: string) => {
+  const setTargetRepository = (
+    owner: string,
+    repo: string,
+    ref: string | null | undefined,
+  ) => {
     navigate(`/${owner}/${repo}${ref ? `/${ref}` : ''}`)
   }
 
-  return [targetRepository, setTargetRepository]
+  return [targetRepository, setTargetRepository] as const
 }
