@@ -1,6 +1,7 @@
 import {Outlet} from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
+import {SearchDialog} from '@/components/search-dialog'
 
 export default function BaseLayout() {
   return (
@@ -8,6 +9,7 @@ export default function BaseLayout() {
       <Header />
       <Outlet />
       <Footer />
+      <SearchDialog />
     </div>
   )
 }
