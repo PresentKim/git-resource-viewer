@@ -1,9 +1,11 @@
 import {
   useGithubApiCacheStore,
   useGithubApiTokenStore,
+  useGithubRateLimitStore,
 } from '@/stores/githubApiStore'
 
 function useGithubApi<T>() {
+  const rateLimitStore = useGithubRateLimitStore()
   const tokenStore = useGithubApiTokenStore()
   const cacheStore = useGithubApiCacheStore<T>()()
 
@@ -22,28 +24,36 @@ function useGithubApi<T>() {
       headers['Authorization'] = `Bearer ${githubToken}`
     }
 
-    const cache = await cacheStore.getItem(cacheKey)
     let cacheValue: T | null = null
-    if (cache) {
-      const [etag, value] = cache
-      console.info('[cache-hit] ' + cacheKey, cache)
-      headers['If-None-Match'] = etag
-      cacheValue = value
-    } else {
-      console.info('[cache-miss] ' + cacheKey)
+    if (cacheKey) {
+      const cache = await cacheStore.getItem(cacheKey)
+      if (cache) {
+        const [etag, value] = cache
+        console.info('[cache-hit] ' + cacheKey, cache)
+        headers['If-None-Match'] = etag
+        cacheValue = value
+      } else {
+        console.info('[cache-miss] ' + cacheKey)
+      }
     }
 
     const response = await fetch(url, {headers})
+    rateLimitStore.setRateLimit(
+      parseInt(response.headers.get('X-Ratelimit-Limit') || '0'),
+      parseInt(response.headers.get('X-Ratelimit-Remaining') || '0'),
+    )
     if (response.status === 304 && cacheValue) {
       return cacheValue
     }
 
     if (response.ok) {
-      const etag = response.headers.get('etag')
       const data = dataMapper(await response.json())
 
-      if (etag) {
-        cacheStore.setCache(cacheKey, etag, data)
+      if (cacheKey) {
+        const etag = response.headers.get('Etag')
+        if (etag) {
+          cacheStore.setCache(cacheKey, etag, data)
+        }
       }
 
       return data

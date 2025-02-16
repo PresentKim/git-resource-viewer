@@ -13,8 +13,9 @@ import {
 import {Button} from '@/components/ui/button'
 import {BreadcrumbList} from '@/components/breadcrumb-list'
 import {SearchDialog} from '@/components/search-dialog'
-import {useSearchDialogStore} from '@/stores/searchDialogStore'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
+import {useGithubRateLimitStore} from '@/stores/githubApiStore'
+import {useSearchDialogStore} from '@/stores/searchDialogStore'
 import {cn} from '@/lib/utils'
 
 const underlineHoverAnimation = cn(
@@ -24,6 +25,7 @@ const underlineHoverAnimation = cn(
 
 export default function BaseLayout() {
   const [{owner, repo, ref}] = useTargetRepository()
+  const {limit, remaining} = useGithubRateLimitStore()
   const {open: openSearchDialog} = useSearchDialogStore()
 
   return (
@@ -92,6 +94,15 @@ export default function BaseLayout() {
             className={underlineHoverAnimation}>
             repo-image-viewer
           </a>
+          <div
+            aria-label="Github API rate limit"
+            className="fixed text-xs right-2 bottom-2 select-none">
+            <span aria-label="Github API rate limit remaining">
+              {remaining}
+            </span>
+            <span>/</span>
+            <span aria-label="Github API rate limit limit">{limit}</span>
+          </div>
         </footer>
       </div>
 
