@@ -1,14 +1,20 @@
-import Header from './components/Header'
-import Main from './components/Main'
-import Footer from './components/Footer'
+import {HashRouter as Router, Routes, Route} from 'react-router-dom'
+import BaseLayout from '@/layout/BaseLayout'
+import Home from '@/pages/Home'
+import NotFound from '@/pages/NotFound'
+import RepoView from '@/pages/RepoView'
 
 function App() {
   return (
-    <div className="flex h-full min-h-screen w-full flex-col items-center justify-center">
-      <Header />
-      <Main />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route element={<BaseLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/:owner/:repo/*" element={<RepoView />} />
+        </Route>
+      </Routes>
+    </Router>
   )
 }
 
