@@ -55,4 +55,15 @@ function useGithubApi<T>() {
   return {fetchGithubApi}
 }
 
-export {useGithubApi}
+function useGithubDefaultBranch() {
+  const {fetchGithubApi} = useGithubApi<string>()
+
+  return (owner: string, repo: string) =>
+    fetchGithubApi(
+      `https://api.github.com/repos/${owner}/${repo}`,
+      `${owner}/${repo}`,
+      data => (data as {default_branch: string}).default_branch,
+    )
+}
+
+export {useGithubApi, useGithubDefaultBranch}

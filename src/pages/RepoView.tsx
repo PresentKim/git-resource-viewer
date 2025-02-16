@@ -10,12 +10,20 @@ import {Header, HeaderSide, HeaderTitle} from '@/components/header'
 import {BreadcrumbList} from '@/components/breadcrumb-list'
 import {useSearchDialogStore} from '@/stores/searchDialogStore'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
+import {useGithubDefaultBranch} from '@/hooks/useGithubApi'
 import {Button} from '@/components/ui/button'
 
 export default function RepoView() {
-  const [targetRepository] = useTargetRepository() // extracting repoId from params
+  const [targetRepository, setTargetRepository] = useTargetRepository() // extracting repoId from params
   const {owner, repo, ref} = targetRepository
   const {open: openSearchDialog} = useSearchDialogStore()
+  const fetchGithubDefaultBranch = useGithubDefaultBranch()
+
+  if (owner && repo && !ref) {
+    fetchGithubDefaultBranch(owner, repo)
+      .then(defaultBranch => setTargetRepository(owner, repo, defaultBranch))
+      .catch(console.error)
+  }
 
   return (
     <>
