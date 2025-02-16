@@ -1,7 +1,42 @@
+import {useMemo, useState} from 'react'
+import {useNavigate, useParams} from 'react-router-dom'
+import {cn} from '@/lib/utils'
+import {generateRandomFunnyMessage} from '@/lib/randomMessages'
+
 export default function NotFound() {
+  const navigate = useNavigate()
+  const {'*': pagePath} = useParams<{'*': string}>()
+
+  const [isRedirecting, setIsRedirecting] = useState(false)
+  const randomMessage = useMemo(generateRandomFunnyMessage, [])
+
+  const handleGoBack = () => {
+    setIsRedirecting(true)
+    setTimeout(() => navigate('/'), 500)
+  }
+
   return (
-    <main className="flex flex-1 justify-center items-center align-middle min-h-8 w-full px-4 py-2">
-      <h1 className="my-2 text-center text-4xl font-bold">Page Not Found</h1>
+    <main
+      className={cn(
+        'flex flex-col items-center justify-center h-full space-y-8 p-4',
+        'transition-opacity duration-500',
+        isRedirecting ? 'opacity-0' : 'opacity-100',
+      )}>
+      <h1 className="text-6xl font-bold mb-4">404</h1>
+      <h2 className="text-4xl font-semibold mb-6">{randomMessage.title}</h2>
+      <p className="text-gray-400 text-lg mb-8">
+        Looks like <u>{pagePath}</u> {randomMessage.description}
+      </p>
+      <p className="text-gray-400 text-lg italic">{randomMessage.footer}</p>
+      <button
+        onClick={handleGoBack}
+        className={cn(
+          'w-full sm:w-auto px-6 py-3',
+          'bg-neutral-700 text-white font-semibold rounded-lg shadow-md',
+          'hover:bg-neutral-800 hover:shadow-lg transition-colors',
+        )}>
+        Go Back Home
+      </button>
     </main>
   )
 }
