@@ -75,11 +75,11 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
       return
     }
 
-    setTargetRepository({
-      owner: regexMatch.groups.owner,
-      repo: regexMatch.groups.repo,
-      ref: regexMatch.groups.ref,
-    })
+    setTargetRepository(
+      regexMatch.groups.owner,
+      regexMatch.groups.repo,
+      regexMatch.groups.ref,
+    )
 
     form.clearErrors('input')
     form.setValue('input', '')

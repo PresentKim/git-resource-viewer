@@ -7,28 +7,26 @@ interface Params extends Record<string, string | undefined> {
 }
 
 export interface TargetRepository {
-  owner: string | null
-  repo: string | null
-  ref: string | null
+  owner: string
+  repo: string
+  ref: string
 }
 
 export function useTargetRepository(): [
   TargetRepository,
-  (newTargetRepository: TargetRepository) => void,
+  (owner: string, repo: string, ref?: string) => void,
 ] {
   const params = useParams<Params>() // extracting repoId from params
   const navigate = useNavigate()
 
   const targetRepository: TargetRepository = {
-    owner: params.owner ?? null,
-    repo: params.repo ?? null,
-    ref: params['*'] ?? null,
+    owner: params.owner ?? '',
+    repo: params.repo ?? '',
+    ref: params['*'] ?? '',
   }
 
-  const setTargetRepository = (newTargetRepository: TargetRepository) => {
-    navigate(
-      `/${newTargetRepository.owner}/${newTargetRepository.repo}/${newTargetRepository.ref}`,
-    )
+  const setTargetRepository = (owner: string, repo: string, ref?: string) => {
+    navigate(`/${owner}/${repo}${ref ? `/${ref}` : ''}`)
   }
 
   return [targetRepository, setTargetRepository]

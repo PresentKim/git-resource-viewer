@@ -31,12 +31,7 @@ export default function Home() {
         <p className="text-center text-neutral-400">or</p>
         <Button
           onClick={() =>
-            setTargetRepository({
-              // https://github.com/Mojang/bedrock-samples
-              owner: 'Mojang',
-              repo: 'bedrock-samples',
-              ref: 'main',
-            })
+            setTargetRepository('Mojang', 'bedrock-samples', 'main')
           }
           className="ring-neutral-400">
           <PickaxeIcon strokeWidth={3} />
