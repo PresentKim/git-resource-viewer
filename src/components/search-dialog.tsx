@@ -1,6 +1,6 @@
 import {useForm} from 'react-hook-form'
+import {EraserIcon} from 'lucide-react'
 
-import {TbTrashX as ResetIcon} from 'react-icons/tb'
 import {
   Form,
   FormItem,
@@ -128,7 +128,7 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
                   variant="ghost"
                   className="!px-2"
                   onClick={onClockResetButton}>
-                  <ResetIcon className="size-6" />
+                  <EraserIcon className="size-6" />
                 </Button>
               </div>
               <Button
