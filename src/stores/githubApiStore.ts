@@ -20,15 +20,15 @@ export const useGithubApiTokenStore = create<GithubApiTokenStore>(() => ({
   },
 }))
 
-type GithubApiCacheData<T> = [etag: string, value: T]
+const CACHE_EXPIRY = 1000 * 60 * 60 // 1 hour (late-limit reset per hour)
+type GithubApiCacheData<T> = [etag: string, value: T, expiredAt: number]
 export function useGithubApiCacheStore<T>() {
   const storage = createSmartStorage<GithubApiCacheData<T>>()
   return create(() => ({
     ...storage,
-    getItem: (key: string) => storage.getItem(key),
     setCache: (key: string, etag: string, value: T) =>
-      storage.setItem(key, [etag, value]),
-  }))
+      storage.setItem(key, [etag, value, Date.now() + CACHE_EXPIRY]),
+  }))()
 }
 
 interface GithubRateLimitState {

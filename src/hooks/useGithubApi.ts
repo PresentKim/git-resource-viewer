@@ -7,7 +7,7 @@ import {
 function useGithubApi<T>() {
   const rateLimitStore = useGithubRateLimitStore()
   const tokenStore = useGithubApiTokenStore()
-  const cacheStore = useGithubApiCacheStore<T>()()
+  const cacheStore = useGithubApiCacheStore<T>()
 
   const fetchGithubApi = async (
     url: string,
@@ -20,7 +20,6 @@ function useGithubApi<T>() {
 
     const githubToken = await tokenStore.getGithubToken()
     if (githubToken) {
-      console.info('[auth] Using GitHub token')
       headers['Authorization'] = `Bearer ${githubToken}`
     }
 
@@ -28,12 +27,14 @@ function useGithubApi<T>() {
     if (cacheKey) {
       const cache = await cacheStore.getItem(cacheKey)
       if (cache) {
-        const [etag, value] = cache
-        console.info('[cache-hit] ' + cacheKey, cache)
-        headers['If-None-Match'] = etag
-        cacheValue = value
-      } else {
-        console.info('[cache-miss] ' + cacheKey)
+        const [etag, value, expiredAt] = cache
+        if (expiredAt < Date.now()) {
+          await cacheStore.removeItem(cacheKey)
+          return value
+        } else {
+          headers['If-None-Match'] = etag
+          cacheValue = value
+        }
       }
     }
 
