@@ -1,7 +1,8 @@
-import {Outlet} from 'react-router-dom'
+import {Link, Outlet} from 'react-router-dom'
 import {
   ImagesIcon as HeaderIcon,
   FolderGit2Icon as GithubIcon,
+  SettingsIcon,
 } from 'lucide-react'
 import {
   DropdownMenu,
@@ -41,7 +42,9 @@ export default function BaseLayout() {
           <div data-slot="header-title" className="flex items-center gap-2">
             <HeaderIcon strokeWidth={3} />
             {!owner || !repo ? (
-              <b className="select-none">repo-image-viewer</b>
+              <Link to="/" className="font-bold select-none">
+                repo-image-viewer
+              </Link>
             ) : (
               <DropdownMenu>
                 <DropdownMenuTrigger className="hover:cursor-pointer">
@@ -70,9 +73,11 @@ export default function BaseLayout() {
               </DropdownMenu>
             )}
           </div>
-          <div
-            data-slot="header-side"
-            className="flex items-center gap-2"></div>
+          <div data-slot="header-side" className="flex items-center gap-2">
+            <Link to="/settings">
+              <SettingsIcon className="size-6 hover:rotate-90 transition-transform" />
+            </Link>
+          </div>
         </header>
 
         <Outlet />
