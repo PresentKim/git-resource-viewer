@@ -36,9 +36,11 @@ function Header() {
       <div
         data-slot="header-title"
         className="flex flex-1 items-center h-full min-w-0 gap-2">
-        <HeaderIcon strokeWidth={3} className="size-6 min-w-6 self-start" />
+        <NavLink to="/" aria-label="Home" className="font-bold select-none">
+          <HeaderIcon strokeWidth={3} className="size-6 min-w-6 self-start" />
+        </NavLink>
         {!owner || !repo ? (
-          <NavLink to="/" className="font-bold select-none">
+          <NavLink to="/" aria-label="Home" className="font-bold select-none">
             repo-image-viewer
           </NavLink>
         ) : (
@@ -73,6 +75,7 @@ function Header() {
         className="flex items-center h-full ml-8 gap-2">
         <NavLink
           to="/settings"
+          aria-label="Settings"
           className="self-start hover:rotate-90 [&.active]:rotate-90 transition-transform">
           <SettingsIcon className="size-6 min-w-6" />
         </NavLink>
