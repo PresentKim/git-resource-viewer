@@ -1,4 +1,4 @@
-import {Link, Outlet} from 'react-router-dom'
+import {NavLink, Outlet} from 'react-router-dom'
 import {
   ImagesIcon as HeaderIcon,
   FolderGit2Icon as GithubIcon,
@@ -44,9 +44,9 @@ export default function BaseLayout() {
             className="flex flex-1 items-center h-full min-w-0 gap-2">
             <HeaderIcon strokeWidth={3} className="size-6 min-w-6 self-start" />
             {!owner || !repo ? (
-              <Link to="/" className="font-bold select-none">
+              <NavLink to="/" className="font-bold select-none">
                 repo-image-viewer
-              </Link>
+              </NavLink>
             ) : (
               <DropdownMenu>
                 <DropdownMenuTrigger className="hover:cursor-pointer flex-1 w-full">
@@ -77,9 +77,11 @@ export default function BaseLayout() {
           <div
             data-slot="header-side"
             className="flex items-center h-full ml-8 gap-2">
-            <Link to="/settings" className="self-start">
-              <SettingsIcon className="size-6 min-w-6 hover:rotate-90 transition-transform" />
-            </Link>
+            <NavLink
+              to="/settings"
+              className="self-start hover:rotate-90 [&.active]:rotate-90 transition-transform">
+              <SettingsIcon className="size-6 min-w-6" />
+            </NavLink>
           </div>
         </header>
 
