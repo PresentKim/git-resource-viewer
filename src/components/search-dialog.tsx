@@ -120,6 +120,7 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
                     {...field}
                     onInput={onInput}
                     required
+                    autoFocus
                   />
                 </FormControl>
                 <Button
@@ -153,7 +154,7 @@ export function SearchDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
-      <DialogContent>
+      <DialogContent onOpenAutoFocus={e => e.preventDefault()}>
         <DialogHeader>
           <DialogTitle>Open Github Repository</DialogTitle>
           <DialogDescription>Enter the Github repository URL</DialogDescription>
