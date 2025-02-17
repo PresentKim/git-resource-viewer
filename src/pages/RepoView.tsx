@@ -13,10 +13,12 @@ export default function RepoView() {
 
   return (
     <main className="flex flex-wrap flex-1 justify-center items-center align-middle min-h-8 w-full px-4 py-2">
-      <div>
-        <p>Owner: {owner}</p>
-        <p>Repository: {repo}</p>
-        <p>Branch/Tag: {ref}</p>
+      <div className="break-all">
+        {owner}
+        <hr />
+        {repo}
+        <hr />
+        {ref}
       </div>
     </main>
   )

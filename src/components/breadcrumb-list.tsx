@@ -1,3 +1,4 @@
+import {cn} from '@/lib/utils'
 import {Fragment, type ComponentProps, type FC} from 'react'
 
 interface BreadcrumbProps {
@@ -11,20 +12,22 @@ interface BreadcrumbProps {
 function BreadcrumbList({
   items,
   className,
-  ellipsisLength,
   separator,
 }: ComponentProps<FC<BreadcrumbProps>>) {
   return (
-    <div className="flex flex-wrap gap-x-0.5">
+    <div className="flex flex-wrap flex-1 gap-x-0.5">
       {items.map(
         (item, index) =>
           item && (
             <Fragment key={index}>
               {index > 0 && (separator || <span>/</span>)}
-              <span key={index} className={className}>
-                {ellipsisLength && item.length > ellipsisLength
-                  ? item.slice(0, ellipsisLength - 2) + '...'
-                  : item}
+              <span
+                key={index}
+                className={cn(
+                  'whitespace-nowrap overflow-hidden text-ellipsis min-w-0 max-w-full',
+                  className,
+                )}>
+                {item}
               </span>
             </Fragment>
           ),

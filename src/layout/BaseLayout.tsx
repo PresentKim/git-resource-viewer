@@ -31,30 +31,31 @@ export default function BaseLayout() {
 
   return (
     <>
-      <div className="flex h-full min-h-screen w-full flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center h-full w-full max-w-full">
         <header
           data-slot="header"
           className={cn(
             'flex justify-between items-center align-middle',
-            'w-full min-h-8 px-4 py-2',
+            'w-full max-w-full min-h-8 px-4 py-2',
             'shadow-xs shadow-neutral-800',
           )}>
-          <div data-slot="header-title" className="flex items-center gap-2">
-            <HeaderIcon strokeWidth={3} />
+          <div
+            data-slot="header-title"
+            className="flex flex-1 items-center h-full min-w-0 gap-2">
+            <HeaderIcon strokeWidth={3} className="size-6 min-w-6 self-start" />
             {!owner || !repo ? (
               <Link to="/" className="font-bold select-none">
                 repo-image-viewer
               </Link>
             ) : (
               <DropdownMenu>
-                <DropdownMenuTrigger className="hover:cursor-pointer">
+                <DropdownMenuTrigger className="hover:cursor-pointer flex-1 w-full">
                   <BreadcrumbList
                     items={[owner, repo, ref]}
-                    className="text-nowrap"
                     separator={<span className="text-neutral-500">/</span>}
                   />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent align="start">
                   <DropdownMenuItem asChild>
                     <a
                       href={`https://github.com/${owner}/${repo}${ref ? `/tree/${ref}` : ''}`}
@@ -73,9 +74,11 @@ export default function BaseLayout() {
               </DropdownMenu>
             )}
           </div>
-          <div data-slot="header-side" className="flex items-center gap-2">
-            <Link to="/settings">
-              <SettingsIcon className="size-6 hover:rotate-90 transition-transform" />
+          <div
+            data-slot="header-side"
+            className="flex items-center h-full ml-8 gap-2">
+            <Link to="/settings" className="self-start">
+              <SettingsIcon className="size-6 min-w-6 hover:rotate-90 transition-transform" />
             </Link>
           </div>
         </header>
