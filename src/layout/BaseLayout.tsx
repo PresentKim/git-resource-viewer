@@ -1,9 +1,5 @@
 import {NavLink, Outlet} from 'react-router-dom'
-import {
-  ImagesIcon as HeaderIcon,
-  FolderGit2Icon as GithubIcon,
-  SettingsIcon,
-} from 'lucide-react'
+import {FolderGit2Icon as GithubIcon, SettingsIcon} from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +10,7 @@ import {
 import {Button} from '@/components/ui/button'
 import {BreadcrumbList} from '@/components/breadcrumb-list'
 import {SearchDialog} from '@/components/search-dialog'
+import {LogoIcon as HeaderIcon} from '@/components/logo'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {useGithubRateLimitStore} from '@/stores/githubApiStore'
 import {useSearchDialogStore} from '@/stores/searchDialogStore'
