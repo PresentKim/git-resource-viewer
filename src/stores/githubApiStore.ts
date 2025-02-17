@@ -26,14 +26,15 @@ export interface GithubApiCacheData<T> {
   value: T
   expiredAt: number
 }
-export function useGithubApiCacheStore<T>() {
-  const storage = createSmartStorage<GithubApiCacheData<T>>()
-  return create(() => ({
-    ...storage,
-    setCache: (key: string, etag: string, value: T) =>
-      storage.setItem(key, {etag, value, expiredAt: Date.now() + CACHE_EXPIRY}),
-  }))()
-}
+
+const storage = createSmartStorage<GithubApiCacheData<unknown>>()
+export const useGithubApiCacheStore = create(() => ({
+  get: storage.getItem,
+  set: (key: string, etag: string, value: unknown) => {
+    storage.setItem(key, {etag, value, expiredAt: Date.now() + CACHE_EXPIRY})
+  },
+  remove: storage.removeItem,
+}))
 
 interface GithubRateLimitState {
   limit: number

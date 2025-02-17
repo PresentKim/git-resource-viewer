@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {useForm} from 'react-hook-form'
 import {EraserIcon} from 'lucide-react'
 
@@ -32,27 +32,37 @@ export default function Settings() {
 
   useEffect(() => {
     getGithubToken().then(token => token && form.setValue('input', token))
-  }, [form, getGithubToken])
+  }, [getGithubToken, form])
 
-  const onSubmit = ({input}: FormValues) => {
-    setGithubToken(input.trim())
+  const onSubmit = useCallback(
+    ({input}: FormValues) => {
+      setGithubToken(input.trim())
 
-    form.setValue('input', '')
-  }
+      form.setValue('input', '')
+    },
+    [form, setGithubToken],
+  )
 
-  const onClockResetButton = () => {
+  const toggleInputVisible = useCallback(() => {
+    setInputVisible(!inputVisible)
+  }, [inputVisible])
+
+  const onClockResetButton = useCallback(() => {
     clearGithubToken()
     form.setValue('input', '')
     form.setFocus('input')
-  }
+  }, [clearGithubToken, form])
 
-  const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Prevent useless empty chars at start and end
-    e.target.value = e.target.value.trim()
+  const onInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      // Prevent useless empty chars at start and end
+      e.target.value = e.target.value.trim()
 
-    // Remove the error message when the user starts typing
-    form.clearErrors('input')
-  }
+      // Remove the error message when the user starts typing
+      form.clearErrors('input')
+    },
+    [form],
+  )
 
   return (
     <main className="flex flex-col flex-1 justify-start items-center min-h-8 w-full px-4 py-8 space-y-6">
@@ -92,7 +102,7 @@ export default function Settings() {
                     aria-label={inputVisible ? 'Hide input' : 'Show input'}
                     variant="ghost"
                     className="!px-2"
-                    onClick={() => setInputVisible(!inputVisible)}>
+                    onClick={toggleInputVisible}>
                     {inputVisible ? (
                       <SquareIcon className="size-6" />
                     ) : (

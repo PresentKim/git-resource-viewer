@@ -1,11 +1,17 @@
+import {useCallback} from 'react'
 import {PickaxeIcon, SearchIcon} from 'lucide-react'
 import {Button} from '@/components/ui/button'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {useSearchDialogStore} from '@/stores/searchDialogStore'
 
 export default function Home() {
-  const {open: openSearchDialog} = useSearchDialogStore()
+  const openSearchDialog = useSearchDialogStore(state => state.open)
   const [, setTargetRepository] = useTargetRepository()
+
+  const openExampleRepository = useCallback(
+    () => setTargetRepository('Mojang', 'bedrock-samples', 'main'),
+    [setTargetRepository],
+  )
 
   return (
     <main className="flex flex-col flex-1 justify-start items-center min-h-8 w-full px-4 py-8 space-y-6">
@@ -21,9 +27,7 @@ export default function Home() {
         Search Repository
       </Button>
       <p className="text-center text-neutral-400">or</p>
-      <Button
-        onClick={() => setTargetRepository('Mojang', 'bedrock-samples', 'main')}
-        className="ring-neutral-400">
+      <Button onClick={openExampleRepository} className="ring-neutral-400">
         <PickaxeIcon strokeWidth={3} />
         Open example repository
       </Button>

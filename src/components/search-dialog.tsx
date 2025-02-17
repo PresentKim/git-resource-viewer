@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {useForm} from 'react-hook-form'
 import {EraserIcon} from 'lucide-react'
 
@@ -33,74 +34,80 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
     },
   })
 
-  const onSubmit = ({input}: FormValues) => {
-    // Remove http://github.com or https://github.com or git@github.com: from the input, and remove .git or / on end
-    const cleanInput = input
-      .trim()
-      .replace(/^(?:https?:\/\/)?(?:www\.)?(git@|github\.com)?[/:]?/i, '')
-      .replace(/(\/|\?.+|\.git)$/i, '')
-      .trim()
+  const onSubmit = useCallback(
+    ({input}: FormValues) => {
+      // Remove http://github.com or https://github.com or git@github.com: from the input, and remove .git or / on end
+      const cleanInput = input
+        .trim()
+        .replace(/^(?:https?:\/\/)?(?:www\.)?(git@|github\.com)?[/:]?/i, '')
+        .replace(/(\/|\?.+|\.git)$/i, '')
+        .trim()
 
-    // Validate the input field is not empty
-    if (!input.trim()) {
-      form.setError('input', {
-        type: 'required',
-        message: 'Repository URL is required',
-      })
+      // Validate the input field is not empty
+      if (!input.trim()) {
+        form.setError('input', {
+          type: 'required',
+          message: 'Repository URL is required',
+        })
+        form.setValue('input', '')
+        form.setFocus('input')
+        return
+      }
+
+      /**
+       * Validate the input field is in the correct format
+       *
+       * Supports the following formats:
+       * - owner/repo
+       * - owner/repo@ref
+       * - owner/repo/@ref
+       * - owner/repo/ref
+       * - owner/repo/tree/ref
+       * - owner/repo/commit/ref
+       */
+      const regexMatch = cleanInput.match(
+        /^(?<owner>[a-z0-9_-]+)\/(?<repo>[a-z0-9_-]+)(?:\/tree\/|\/commit\/|\/?@|\/)?(?<ref>[a-z0-9/_.-]+)?$/i,
+      )
+      if (!regexMatch || !regexMatch.groups) {
+        form.setError('input', {
+          type: 'invalid',
+          message: 'Invalid repository URL',
+        })
+        form.setFocus('input')
+        return
+      }
+
+      setTargetRepository(
+        regexMatch.groups.owner,
+        regexMatch.groups.repo,
+        regexMatch.groups.ref,
+      )
+
+      form.clearErrors('input')
       form.setValue('input', '')
-      form.setFocus('input')
-      return
-    }
+      if (onComplected) {
+        onComplected()
+      }
+    },
+    [form, setTargetRepository, onComplected],
+  )
 
-    /**
-     * Validate the input field is in the correct format
-     *
-     * Supports the following formats:
-     * - owner/repo
-     * - owner/repo@ref
-     * - owner/repo/@ref
-     * - owner/repo/ref
-     * - owner/repo/tree/ref
-     * - owner/repo/commit/ref
-     */
-    const regexMatch = cleanInput.match(
-      /^(?<owner>[a-z0-9_-]+)\/(?<repo>[a-z0-9_-]+)(?:\/tree\/|\/commit\/|\/?@|\/)?(?<ref>[a-z0-9/_.-]+)?$/i,
-    )
-    if (!regexMatch || !regexMatch.groups) {
-      form.setError('input', {
-        type: 'invalid',
-        message: 'Invalid repository URL',
-      })
-      form.setFocus('input')
-      return
-    }
-
-    setTargetRepository(
-      regexMatch.groups.owner,
-      regexMatch.groups.repo,
-      regexMatch.groups.ref,
-    )
-
-    form.clearErrors('input')
-    form.setValue('input', '')
-    if (onComplected) {
-      onComplected()
-    }
-  }
-
-  const onClockResetButton = () => {
+  const onClockResetButton = useCallback(() => {
     form.clearErrors('input')
     form.setValue('input', '')
     form.setFocus('input')
-  }
+  }, [form])
 
-  const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Prevent useless empty chars at start and end
-    e.target.value = e.target.value.trim()
+  const onInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      // Prevent useless empty chars at start and end
+      e.target.value = e.target.value.trim()
 
-    // Remove the error message when the user starts typing
-    form.clearErrors('input')
-  }
+      // Remove the error message when the user starts typing
+      form.clearErrors('input')
+    },
+    [form],
+  )
 
   return (
     <Form {...form}>
@@ -151,10 +158,11 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
 
 export function SearchDialog() {
   const {isOpen, setOpen, close} = useSearchDialogStore()
+  const preventDefault = useCallback((e: Event) => e.preventDefault(), [])
 
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
-      <DialogContent onOpenAutoFocus={e => e.preventDefault()}>
+      <DialogContent onOpenAutoFocus={preventDefault}>
         <DialogHeader>
           <DialogTitle>Open Github Repository</DialogTitle>
           <DialogDescription>Enter the Github repository URL</DialogDescription>

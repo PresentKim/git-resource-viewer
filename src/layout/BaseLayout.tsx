@@ -24,96 +24,104 @@ const underlineHoverAnimation = cn(
   'after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all hover:after:w-full',
 )
 
-export default function BaseLayout() {
+function Header() {
   const [{owner, repo, ref}] = useTargetRepository()
-  const {limit, remaining} = useGithubRateLimitStore()
-  const {open: openSearchDialog} = useSearchDialogStore()
+  const openSearchDialog = useSearchDialogStore(state => state.open)
 
+  return (
+    <header
+      data-slot="header"
+      className={cn(
+        'flex justify-between items-center align-middle',
+        'w-full max-w-full min-h-8 px-4 py-2',
+        'shadow-xs shadow-neutral-800',
+      )}>
+      <div
+        data-slot="header-title"
+        className="flex flex-1 items-center h-full min-w-0 gap-2">
+        <HeaderIcon strokeWidth={3} className="size-6 min-w-6 self-start" />
+        {!owner || !repo ? (
+          <NavLink to="/" className="font-bold select-none">
+            repo-image-viewer
+          </NavLink>
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger className="hover:cursor-pointer flex-1 w-full">
+              <BreadcrumbList
+                items={[owner, repo, ref]}
+                separator={<span className="text-neutral-500">/</span>}
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <a
+                  href={`https://github.com/${owner}/${repo}${ref ? `/tree/${ref}` : ''}`}
+                  target="_blank"
+                  rel="noreferrer">
+                  View on GitHub
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Button variant="ghost" onClick={openSearchDialog}>
+                  Open New Repository
+                </Button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
+      </div>
+      <div
+        data-slot="header-side"
+        className="flex items-center h-full ml-8 gap-2">
+        <NavLink
+          to="/settings"
+          className="self-start hover:rotate-90 [&.active]:rotate-90 transition-transform">
+          <SettingsIcon className="size-6 min-w-6" />
+        </NavLink>
+      </div>
+    </header>
+  )
+}
+
+function Footer() {
+  const {limit, remaining} = useGithubRateLimitStore()
+
+  return (
+    <footer className="my-4 flex w-full items-center justify-center gap-0.5 text-xs text-neutral-400">
+      <GithubIcon className="size-4" />
+      <a
+        href="https://github.com/PresentKim"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={underlineHoverAnimation}>
+        PresentKim
+      </a>
+      <p>/</p>
+      <a
+        href="https://github.com/PresentKim/repo-image-viewer"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={underlineHoverAnimation}>
+        repo-image-viewer
+      </a>
+      <div
+        aria-label="Github API rate limit"
+        className="fixed text-xs right-2 bottom-2 select-none">
+        {remaining || '-'}/{limit || '-'}
+      </div>
+    </footer>
+  )
+}
+
+export default function BaseLayout() {
   return (
     <>
       <div className="flex flex-col items-center justify-center h-full w-full max-w-full">
-        <header
-          data-slot="header"
-          className={cn(
-            'flex justify-between items-center align-middle',
-            'w-full max-w-full min-h-8 px-4 py-2',
-            'shadow-xs shadow-neutral-800',
-          )}>
-          <div
-            data-slot="header-title"
-            className="flex flex-1 items-center h-full min-w-0 gap-2">
-            <HeaderIcon strokeWidth={3} className="size-6 min-w-6 self-start" />
-            {!owner || !repo ? (
-              <NavLink to="/" className="font-bold select-none">
-                repo-image-viewer
-              </NavLink>
-            ) : (
-              <DropdownMenu>
-                <DropdownMenuTrigger className="hover:cursor-pointer flex-1 w-full">
-                  <BreadcrumbList
-                    items={[owner, repo, ref]}
-                    separator={<span className="text-neutral-500">/</span>}
-                  />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
-                  <DropdownMenuItem asChild>
-                    <a
-                      href={`https://github.com/${owner}/${repo}${ref ? `/tree/${ref}` : ''}`}
-                      target="_blank"
-                      rel="noreferrer">
-                      View on GitHub
-                    </a>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Button variant="ghost" onClick={openSearchDialog}>
-                      Open New Repository
-                    </Button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-          </div>
-          <div
-            data-slot="header-side"
-            className="flex items-center h-full ml-8 gap-2">
-            <NavLink
-              to="/settings"
-              className="self-start hover:rotate-90 [&.active]:rotate-90 transition-transform">
-              <SettingsIcon className="size-6 min-w-6" />
-            </NavLink>
-          </div>
-        </header>
-
+        <Header />
         <Outlet />
-
-        <footer className="my-4 flex w-full items-center justify-center gap-0.5 text-xs text-neutral-400">
-          <GithubIcon className="size-4" />
-          <a
-            href="https://github.com/PresentKim"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={underlineHoverAnimation}>
-            PresentKim
-          </a>
-          <p>/</p>
-          <a
-            href="https://github.com/PresentKim/repo-image-viewer"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={underlineHoverAnimation}>
-            repo-image-viewer
-          </a>
-          <div
-            aria-label="Github API rate limit"
-            className="fixed text-xs right-2 bottom-2 select-none">
-            <span aria-label="Github API remaining">{remaining || '-'}</span>
-            <span>/</span>
-            <span aria-label="Github API limit">{limit || '-'}</span>
-          </div>
-        </footer>
+        <Footer />
       </div>
-
       <SearchDialog />
     </>
   )
