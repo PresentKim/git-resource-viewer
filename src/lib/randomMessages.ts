@@ -1,4 +1,16 @@
-const FUNNY_MESSAGES = [
+export interface RandomMessage {
+  title: string
+  description: string
+  footer: string
+}
+
+export type RandomMessageGenerator = () => RandomMessage
+
+function selectMessage(messages: RandomMessage[]): RandomMessage {
+  return messages[Math.floor(Math.random() * messages.length)]
+}
+
+const NOT_FOUND_MESSAGES: RandomMessage[] = [
   {
     title: 'Oops! Who turned off the lights? 🔍',
     description: 'went on vacation without leaving a forwarding address! 🏖️',
@@ -40,7 +52,5 @@ const FUNNY_MESSAGES = [
     footer: 'Have you tried turning flexbox off and on again? 🔄',
   },
 ]
-
-export function generateRandomFunnyMessage() {
-  return FUNNY_MESSAGES[Math.floor(Math.random() * FUNNY_MESSAGES.length)]
-}
+export const generateNotFoundMessage: RandomMessageGenerator = () =>
+  selectMessage(NOT_FOUND_MESSAGES)

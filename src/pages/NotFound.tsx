@@ -1,14 +1,14 @@
 import {useCallback, useMemo, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import {cn} from '@/lib/utils'
-import {generateRandomFunnyMessage} from '@/lib/randomMessages'
+import {generateNotFoundMessage} from '@/lib/randomMessages'
 
 export default function NotFound() {
   const navigate = useNavigate()
   const {'*': pagePath} = useParams<{'*': string}>()
 
   const [isRedirecting, setIsRedirecting] = useState(false)
-  const randomMessage = useMemo(generateRandomFunnyMessage, [])
+  const randomMessage = useMemo(generateNotFoundMessage, [])
 
   const handleGoBack = useCallback(() => {
     setIsRedirecting(true)
