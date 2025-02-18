@@ -1,5 +1,5 @@
+import {Fragment} from 'react'
 import {cn} from '@/lib/utils'
-import {Fragment, type ComponentProps, type FC} from 'react'
 
 interface BreadcrumbProps {
   items: (string | null)[]
@@ -9,11 +9,11 @@ interface BreadcrumbProps {
   separator?: React.ReactNode | null
 }
 
-function BreadcrumbList({
+export function BreadcrumbList({
   items,
   className,
   separator,
-}: ComponentProps<FC<BreadcrumbProps>>) {
+}: React.ComponentProps<React.FC<BreadcrumbProps>>) {
   return (
     <div className="flex flex-wrap flex-1 gap-x-0.5">
       {items.map(
@@ -35,5 +35,3 @@ function BreadcrumbList({
     </div>
   )
 }
-
-export {BreadcrumbList}

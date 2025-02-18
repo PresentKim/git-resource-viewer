@@ -1,10 +1,10 @@
-import {useEffect, useState, useRef, type ComponentProps} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import {cn, throttle} from '@/lib/utils'
 
 export function FloatingHeader({
   className,
   ...props
-}: Omit<ComponentProps<'header'>, 'ref'>) {
+}: Omit<React.ComponentProps<'header'>, 'ref'>) {
   const [isVisible, setIsVisible] = useState(true)
   const [heightHeight, setHeaderHeight] = useState(40)
   const scrollYRef = useRef(window.scrollY)
