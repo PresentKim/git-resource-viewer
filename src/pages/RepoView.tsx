@@ -43,7 +43,8 @@ export default function RepoView() {
   return (
     <>
       <div className="flex flex-wrap gap-4">
-        {githubImageFiles?.map((path, i) => (
+        {githubImageFiles && githubImageFiles.length ? (
+          githubImageFiles.map((path, i) => (
           <TooltipProvider key={i}>
             <Tooltip>
               <TooltipTrigger
@@ -64,7 +65,10 @@ export default function RepoView() {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-        ))}
+          ))
+        ) : (
+          <div>No image files found</div>
+        )}
       </div>
     </>
   )
