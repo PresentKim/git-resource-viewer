@@ -32,7 +32,7 @@ function Header() {
       className={cn(
         'flex justify-between items-center align-middle duration-700',
         'w-full max-w-full px-4 py-2',
-        'shadow-xs shadow-neutral-800',
+        'shadow-xs shadow-neutral-800 bg-background',
       )}>
       <div
         data-slot="header-title"
