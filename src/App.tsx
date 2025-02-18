@@ -1,22 +1,27 @@
+import {Suspense, lazy} from 'react'
 import {HashRouter as Router, Routes, Route} from 'react-router-dom'
 import BaseLayout from '@/layout/BaseLayout'
-import Home from '@/pages/Home'
-import Settings from '@/pages/Settings'
-import RepoView from '@/pages/RepoView'
-import NotFound from '@/pages/NotFound'
+
+const LazyHome = lazy(() => import('@/pages/Home'))
+const LazySettings = lazy(() => import('@/pages/Settings'))
+const LazyRepoView = lazy(() => import('@/pages/RepoView'))
+const LazyNotFound = lazy(() => import('@/pages/NotFound'))
+const LazyLoading = lazy(() => import('@/pages/Loading'))
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route element={<BaseLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/:owner/:repo/*" element={<RepoView />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+    <Suspense fallback={<LazyLoading />}>
+      <Router>
+        <Routes>
+          <Route element={<BaseLayout />}>
+            <Route path="/" element={<LazyHome />} />
+            <Route path="/settings" element={<LazySettings />} />
+            <Route path="/:owner/:repo/*" element={<LazyRepoView />} />
+          </Route>
+          <Route path="*" element={<LazyNotFound />} />
+        </Routes>
+      </Router>
+    </Suspense>
   )
 }
 
