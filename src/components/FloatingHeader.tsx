@@ -30,7 +30,7 @@ export function FloatingHeader({
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(
-        window.scrollY > scrollYRef.current || window.scrollY < heightHeight,
+        window.scrollY < scrollYRef.current || window.scrollY < heightHeight,
       )
       scrollYRef.current = window.scrollY
     }
@@ -39,7 +39,7 @@ export function FloatingHeader({
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [setIsVisible, heightHeight])
 
   return (
     <>
