@@ -9,31 +9,18 @@ A react web application for previewing images from a given GitHub repository URL
 - Supports direct input of GitHub repository URLs
 - Lightweight and fast with React and Vite
 
-## 📦 Installation
-
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/PresentKim/repo-image-viewer.git
-   cd repo-image-viewer
-   ```
-2. Install dependencies:
-   ```sh
-   npm install
-   or
-   yarn install
-   ```
-3. Start the development server:
-   ```sh
-   npm run dev
-   or
-   yarn dev
-   ```
-
 ## 🛠️ Usage
 
 1. Enter the GitHub repository URL in the input field.
 2. The app fetches all image files from the repository.
 3. View images in the gallery.
+
+## 📌 Project Overview
+
+For more details, refer to the full project overview:
+
+- [📄 PROJECT_OVERVIEW (Korean)](./PROJECT_OVERVIEW.kor.md)
+- [📄 PROJECT_OVERVIEW (English)](./PROJECT_OVERVIEW.md)
 
 ## 🏗️ Technologies
 
