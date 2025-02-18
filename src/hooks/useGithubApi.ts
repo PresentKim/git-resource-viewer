@@ -6,7 +6,7 @@ import {
   useGithubRateLimitStore,
 } from '@/stores/githubApiStore'
 
-function useGithubApi<T>() {
+export function useGithubApi<T>() {
   const setRateLimit = useGithubRateLimitStore(state => state.setRateLimit)
   const getGithubToken = useGithubApiTokenStore(state => state.getGithubToken)
   const cacheStore = useGithubApiCacheStore()
@@ -69,7 +69,7 @@ function useGithubApi<T>() {
   return fetchGithubApi
 }
 
-function useGithubDefaultBranch() {
+export function useGithubDefaultBranch() {
   const fetchGithubApi = useGithubApi<string>()
 
   const fetchGithubDefaultBranch = useCallback(
@@ -84,4 +84,33 @@ function useGithubDefaultBranch() {
   return fetchGithubDefaultBranch
 }
 
-export {useGithubApi, useGithubDefaultBranch}
+const IMAGE_FILE_EXTENSIONS_REGEX = /\.(png|jpe?g|gif|webp|svg)$/i
+interface GithubRepoFileResponse {
+  tree: Array<{
+    path: string
+    type: 'tree' | 'blob'
+  }>
+}
+export type GithubImageFile = string
+export function useGithubImageFileTree() {
+  const fetchGithubApi = useGithubApi<GithubImageFile[]>()
+
+  const fetchGithubImageFileTree = useCallback(
+    async (owner: string, repo: string, ref: string) =>
+      fetchGithubApi(
+        `https://api.github.com/repos/${owner}/${repo}/git/trees/${ref}?recursive=1`,
+        `${owner}/${repo}/${ref}`,
+        data => {
+          const tree = (data as GithubRepoFileResponse).tree
+          return tree.reduce((acc, {path, type}) => {
+            if (type === 'blob' && IMAGE_FILE_EXTENSIONS_REGEX.test(path)) {
+              acc.push(path)
+            }
+            return acc
+          }, [] as GithubImageFile[])
+        },
+      ),
+    [fetchGithubApi],
+  )
+  return fetchGithubImageFileTree
+}
