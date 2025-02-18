@@ -52,6 +52,7 @@ export default function RepoView() {
                 <img
                   src={`https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}`}
                   alt={path}
+                  loading="lazy"
                   className="w-full h-full object-contain"
                 />
               </TooltipTrigger>
