@@ -11,6 +11,7 @@ import {Button} from '@/components/ui/button'
 import {BreadcrumbList} from '@/components/breadcrumb-list'
 import {SearchDialog} from '@/components/search-dialog'
 import {LogoIcon as HeaderIcon} from '@/components/logo'
+import {FloatingHeader} from '@/components/FloatingHeader'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {useGithubRateLimitStore} from '@/stores/githubApiStore'
 import {useSearchDialogStore} from '@/stores/searchDialogStore'
@@ -26,17 +27,20 @@ function Header() {
   const openSearchDialog = useSearchDialogStore(state => state.open)
 
   return (
-    <header
+    <FloatingHeader
       data-slot="header"
       className={cn(
-        'flex justify-between items-center align-middle',
-        'w-full max-w-full min-h-10 px-4 py-2',
+        'flex justify-between items-center align-middle duration-700',
+        'w-full max-w-full px-4 py-2',
         'shadow-xs shadow-neutral-800',
       )}>
       <div
         data-slot="header-title"
-        className="flex flex-1 items-center h-full min-w-0 gap-2">
-        <NavLink to="/" aria-label="Home" className="font-bold select-none">
+        className="flex flex-1 items-center h-full min-h-10 min-w-0 gap-2">
+        <NavLink
+          to="/"
+          aria-label="Home"
+          className="font-bold select-none self-start mt-2">
           <HeaderIcon strokeWidth={3} className="size-6 min-w-6 self-start" />
         </NavLink>
         {!owner || !repo ? (
@@ -80,7 +84,7 @@ function Header() {
           <SettingsIcon className="size-6 min-w-6" />
         </NavLink>
       </div>
-    </header>
+    </FloatingHeader>
   )
 }
 
