@@ -11,7 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import {RandomMessageLoader} from '@/components/loader'
+import {RandomMessageLoader} from '@/components/RandomMessageLoader'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {
   useGithubDefaultBranch,

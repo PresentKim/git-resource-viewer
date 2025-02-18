@@ -8,9 +8,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import {Button} from '@/components/ui/button'
-import {BreadcrumbList} from '@/components/breadcrumb-list'
-import {SearchDialog} from '@/components/search-dialog'
-import {LogoIcon as HeaderIcon} from '@/components/logo'
+import {BreadcrumbList} from '@/components/BreadcrumbList'
+import {SearchDialog} from '@/components/SearchDialog'
+import {LogoIcon as HeaderIcon} from '@/components/LogoIcon'
 import {FloatingHeader} from '@/components/FloatingHeader'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {useGithubRateLimitStore} from '@/stores/githubApiStore'
