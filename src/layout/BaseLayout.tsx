@@ -88,7 +88,7 @@ function Footer() {
   const {limit, remaining} = useGithubRateLimitStore()
 
   return (
-    <footer className="flex w-full items-center justify-center gap-0.5 my-4 text-xs text-neutral-400">
+    <footer className="flex w-full items-center justify-center gap-0.5 py-4 text-xs text-neutral-400">
       <GithubIcon className="size-4" />
       <a
         href="https://github.com/PresentKim"
