@@ -119,7 +119,9 @@ export default function BaseLayout() {
     <>
       <div className="flex flex-col items-center justify-center h-full w-full max-w-full">
         <Header />
-        <Outlet />
+        <main className="flex flex-col flex-1 justify-start items-center w-full px-4 py-8 space-y-6">
+          <Outlet />
+        </main>
         <Footer />
       </div>
       <SearchDialog />

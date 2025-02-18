@@ -14,7 +14,7 @@ export default function Home() {
   )
 
   return (
-    <main className="flex flex-col flex-1 justify-start items-center min-h-8 w-full px-4 py-8 space-y-6">
+    <>
       <h1 className="text-center text-3xl font-bold">
         Github Repository Image Viewer
       </h1>
@@ -31,6 +31,6 @@ export default function Home() {
         <PickaxeIcon strokeWidth={3} />
         Open example repository
       </Button>
-    </main>
+    </>
   )
 }

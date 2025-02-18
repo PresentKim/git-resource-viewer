@@ -65,7 +65,7 @@ export default function Settings() {
   )
 
   return (
-    <main className="flex flex-col flex-1 justify-start items-center min-h-8 w-full px-4 py-8 space-y-6">
+    <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -128,6 +128,6 @@ export default function Settings() {
           />
         </form>
       </Form>
-    </main>
+    </>
   )
 }

@@ -15,7 +15,7 @@ export default function RepoView() {
   }, [owner, repo, ref, fetchGithubDefaultBranch, setTargetRepository])
 
   return (
-    <main className="flex flex-wrap flex-1 justify-center items-center align-middle min-h-8 w-full px-4 py-2">
+    <>
       <div className="break-all">
         {owner}
         <hr />
@@ -23,6 +23,6 @@ export default function RepoView() {
         <hr />
         {ref}
       </div>
-    </main>
+    </>
   )
 }
