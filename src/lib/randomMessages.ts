@@ -54,3 +54,105 @@ const NOT_FOUND_MESSAGES: RandomMessage[] = [
 ]
 export const generateNotFoundMessage: RandomMessageGenerator = () =>
   selectMessage(NOT_FOUND_MESSAGES)
+
+const BRANCH_FETCH_MESSAGES: RandomMessage[] = [
+  {
+    title: 'Loading default branch...',
+    description:
+      'Just a moment while we fetch the default branch for this repository.',
+    footer: 'This is where the magic begins! 🪄',
+  },
+  {
+    title: 'Branch Discovery Mission! 🌳',
+    description: 'Exploring the repository jungle for the main branch.',
+    footer: 'Almost found our way through! 🧭',
+  },
+  {
+    title: 'Git Detective at Work! 🕵️',
+    description: 'Investigating which branch leads the way.',
+    footer: 'Following the commit trail... 🔍',
+  },
+  {
+    title: 'Branch Safari! 🦁',
+    description: 'Tracking down the default branch in the wild.',
+    footer: 'Adventure awaits in the repository! 🌿',
+  },
+  {
+    title: 'Branching Out! 🌿',
+    description: 'Determining which branch is the chosen one.',
+    footer: 'The Git tree is growing... 🌱',
+  },
+  {
+    title: 'Branch Quest 2024! 🎮',
+    description: 'Leveling up to find the primary branch.',
+    footer: 'Loading next checkpoint... ⭐',
+  },
+]
+export const generateBranchFetchMessage: RandomMessageGenerator = () =>
+  selectMessage(BRANCH_FETCH_MESSAGES)
+
+const IMAGE_FETCH_MESSAGES: RandomMessage[] = [
+  {
+    title: 'Loading image files...',
+    description:
+      'Just a moment while we fetch the image files for this repository.',
+    footer: 'This is where the magic begins! 🪄',
+  },
+  {
+    title: 'Picture Party Loading! 🎉',
+    description: 'Gathering all the visual treasures from this repository.',
+    footer: 'The pixels are getting ready for their big debut! ✨',
+  },
+  {
+    title: 'Image Hunt in Progress! 🔍',
+    description: 'Searching every branch and commit for beautiful visuals.',
+    footer: 'Almost ready for the grand reveal! 🎬',
+  },
+  {
+    title: 'Pixel Parade Coming! 🎪',
+    description: 'Assembling a wonderful gallery of images just for you.',
+    footer: 'Get your virtual viewing glasses ready! 👓',
+  },
+  {
+    title: 'Digital Art Express! 🚂',
+    description: 'Collecting all the pictures from across the repository.',
+    footer: 'Next stop: Visual wonderland! 🌈',
+  },
+  {
+    title: 'Photo Fetch Fiesta! 📸',
+    description: 'Downloading your repository images with style.',
+    footer: 'Time to prepare the virtual gallery! 🖼️',
+  },
+]
+export const generateImageFetchMessage: RandomMessageGenerator = () =>
+  selectMessage(IMAGE_FETCH_MESSAGES)
+
+const NO_IMAGES_MESSAGES: RandomMessage[] = [
+  {
+    title: 'No images found! 🖼️',
+    description: 'There are no image files in this repository.',
+    footer: 'Time to add some color! 🌈',
+  },
+  {
+    title: 'Empty Canvas! 🎨',
+    description: 'This repository is waiting for its first masterpiece.',
+    footer: 'Maybe add some JPEGs or PNGs to brighten things up? ✨',
+  },
+  {
+    title: 'Picture Perfect Void! 📷',
+    description: 'Looks like all the images went on vacation!',
+    footer: 'Time to upload some visual content! 🎞️',
+  },
+  {
+    title: 'Pixel Desert! 🏜️',
+    description: 'Not a single image in sight...',
+    footer: "Let's make this place more photogenic! 📸",
+  },
+  {
+    title: 'Gallery Under Construction! 🚧',
+    description: 'This repository needs some visual inspiration.',
+    footer: 'Ready for your artistic contributions! 🎭',
+  },
+]
+export const generateNoImagesMessage: RandomMessageGenerator = () =>
+  selectMessage(NO_IMAGES_MESSAGES)

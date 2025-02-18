@@ -1,10 +1,17 @@
 import {useEffect, useState} from 'react'
 import {
+  GitBranchPlusIcon,
+  ImageIcon,
+  LoaderIcon,
+  ServerOffIcon,
+} from 'lucide-react'
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import {RandomMessageLoader} from '@/components/loader'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {
   useGithubDefaultBranch,
@@ -12,18 +19,11 @@ import {
   type GithubImageFile,
 } from '@/hooks/useGithubApi'
 import {usePromise} from '@/hooks/usePromise'
-
-function LoadingBranch() {
-  return <div>Loading default branch...</div>
-}
-
-function LoadingImageFiles() {
-  return <div>Loading image files...</div>
-}
-
-function NoImageFiles() {
-  return <div>No image files found</div>
-}
+import {
+  generateBranchFetchMessage,
+  generateImageFetchMessage,
+  generateNoImagesMessage,
+} from '@/lib/randomMessages'
 
 export default function RepoView() {
   const [{owner, repo, ref}, setTargetRepository] = useTargetRepository()
@@ -45,11 +45,35 @@ export default function RepoView() {
   }, [owner, repo, ref, getDefaultBranch, setTargetRepository, getImagePaths])
 
   if (isLoadRef) {
-    return <LoadingBranch />
+    return (
+      <RandomMessageLoader provider={generateBranchFetchMessage}>
+        <div className="flex items-center justify-center text-neutral-500 gap-2">
+          <GitBranchPlusIcon size={16} />
+          loading default branch...
+          <LoaderIcon size={16} className="animate-spin" />
+        </div>
+      </RandomMessageLoader>
+    )
   } else if (isLoadImagePaths) {
-    return <LoadingImageFiles />
+    return (
+      <RandomMessageLoader provider={generateImageFetchMessage}>
+        <div className="flex items-center justify-center text-neutral-500 gap-2">
+          <ImageIcon size={16} />
+          loading images...
+          <LoaderIcon size={16} className="animate-spin" />
+        </div>
+      </RandomMessageLoader>
+    )
   } else if (!imageFiles || !imageFiles.length) {
-    return <NoImageFiles />
+    return (
+      <RandomMessageLoader provider={generateNoImagesMessage}>
+        <div className="flex items-center justify-center text-neutral-500 gap-2">
+          <ImageIcon size={16} />
+          no images found...
+          <ServerOffIcon size={16} />
+        </div>
+      </RandomMessageLoader>
+    )
   }
 
   return (
