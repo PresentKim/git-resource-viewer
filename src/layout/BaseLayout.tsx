@@ -30,7 +30,7 @@ function Header() {
       data-slot="header"
       className={cn(
         'flex justify-between items-center align-middle',
-        'w-full max-w-full min-h-8 px-4 py-2',
+        'w-full max-w-full min-h-10 px-4 py-2',
         'shadow-xs shadow-neutral-800',
       )}>
       <div
@@ -88,7 +88,7 @@ function Footer() {
   const {limit, remaining} = useGithubRateLimitStore()
 
   return (
-    <footer className="my-4 flex w-full items-center justify-center gap-0.5 text-xs text-neutral-400">
+    <footer className="flex w-full items-center justify-center gap-0.5 my-4 text-xs text-neutral-400">
       <GithubIcon className="size-4" />
       <a
         href="https://github.com/PresentKim"
@@ -117,7 +117,7 @@ function Footer() {
 export default function BaseLayout() {
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-full w-full max-w-full">
+      <div className="flex flex-col h-full w-full max-w-full">
         <Header />
         <main className="flex flex-col flex-1 justify-start items-center w-full px-4 py-8 space-y-6">
           <Outlet />
