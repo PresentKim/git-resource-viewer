@@ -99,3 +99,9 @@ a:not(:disabled) {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .hover-underlined {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all hover:after:w-full;
+  }
+}

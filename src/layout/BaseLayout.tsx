@@ -17,11 +17,6 @@ import {useGithubRateLimitStore} from '@/stores/githubApiStore'
 import {useSearchDialogStore} from '@/stores/searchDialogStore'
 import {cn} from '@/lib/utils'
 
-const underlineHoverAnimation = cn(
-  'relative',
-  'after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all hover:after:w-full',
-)
-
 function Header() {
   const [{owner, repo, ref}] = useTargetRepository()
   const openSearchDialog = useSearchDialogStore(state => state.open)
@@ -98,7 +93,7 @@ function Footer() {
         href="https://github.com/PresentKim"
         target="_blank"
         rel="noopener noreferrer"
-        className={underlineHoverAnimation}>
+        className="hover-underlined">
         PresentKim
       </a>
       <p>/</p>
@@ -106,7 +101,7 @@ function Footer() {
         href="https://github.com/PresentKim/repo-image-viewer"
         target="_blank"
         rel="noopener noreferrer"
-        className={underlineHoverAnimation}>
+        className="hover-underlined">
         repo-image-viewer
       </a>
       <div
