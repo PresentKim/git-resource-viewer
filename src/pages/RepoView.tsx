@@ -1,10 +1,5 @@
 import {useEffect, useState} from 'react'
-import {
-  GitBranchPlusIcon,
-  ImageIcon,
-  LoaderIcon,
-  ServerOffIcon,
-} from 'lucide-react'
+import {GitBranchPlusIcon, ImageIcon, LoaderIcon} from 'lucide-react'
 import {
   Tooltip,
   TooltipContent,
