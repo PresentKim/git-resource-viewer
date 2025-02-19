@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import {cn} from '@/lib/utils'
+import {cn} from '@/utils'
 
 interface BreadcrumbProps extends React.ComponentProps<'span'> {
   items: (string | null)[]

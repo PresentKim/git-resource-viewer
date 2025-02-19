@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
-import type {RandomMessageGenerator} from '@/lib/randomMessages'
-import {cn} from '@/lib/utils'
+import type {RandomMessageGenerator} from '@/utils/randomMessages'
+import {cn} from '@/utils'
 
 interface RandomMessageLoaderProps extends React.ComponentProps<'div'> {
   provider: RandomMessageGenerator

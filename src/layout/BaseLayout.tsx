@@ -15,7 +15,7 @@ import {FloatingHeader} from '@/components/FloatingHeader'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {useGithubRateLimitStore} from '@/stores/githubApiStore'
 import {useSearchDialogStore} from '@/stores/searchDialogStore'
-import {cn} from '@/lib/utils'
+import {cn} from '@/utils'
 
 function Header() {
   const [{owner, repo, ref}] = useTargetRepository()

@@ -1,5 +1,5 @@
 import {useEffect, useState, useRef} from 'react'
-import {cn, throttle} from '@/lib/utils'
+import {cn, throttle} from '@/utils'
 
 export function FloatingHeader({
   className,

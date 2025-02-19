@@ -23,7 +23,7 @@ import {
   generateBranchFetchMessage,
   generateImageFetchMessage,
   generateNoImagesMessage,
-} from '@/lib/randomMessages'
+} from '@/utils/randomMessages'
 
 export default function RepoView() {
   const [{owner, repo, ref}, setTargetRepository] = useTargetRepository()

@@ -1,11 +1,4 @@
-import {type ClassValue, clsx} from 'clsx'
-import {twMerge} from 'tailwind-merge'
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-
-export function throttle<T extends unknown[]>(
+export default function throttle<T extends unknown[]>(
   fn: (...args: T) => void,
   delay: number,
 ) {

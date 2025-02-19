@@ -2,8 +2,8 @@ import {useCallback, useMemo, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 
 import {Button} from '@/components/ui/button'
-import {cn} from '@/lib/utils'
-import {generateNotFoundMessage} from '@/lib/randomMessages'
+import {cn} from '@/utils'
+import {generateNotFoundMessage} from '@/utils/randomMessages'
 
 export default function NotFound() {
   const navigate = useNavigate()
