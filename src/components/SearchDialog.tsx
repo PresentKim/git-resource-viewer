@@ -8,13 +8,13 @@ import {
   FormControl,
   FormMessage,
   FormField,
+  FormDescription,
 } from '@/components/ui/form'
 import {Button} from '@/components/ui/button'
 import {Input} from '@/components/ui/input'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
@@ -117,17 +117,17 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
           name="input"
           render={({field}) => (
             <FormItem>
+              <FormDescription>Github repository URL</FormDescription>
               <div className="flex gap-1">
                 <FormControl className="flex-1">
                   <Input
                     id="input"
                     aria-label="Repository URL input"
-                    className="transition-all text-xs md:text-sm placeholder:text-neutral-600"
+                    className="transition-all text-xs md:text-sm"
                     placeholder="https://github.com/example/test/main"
                     {...field}
                     onInput={onInput}
                     required
-                    autoFocus
                   />
                 </FormControl>
                 <Button
@@ -135,6 +135,7 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
                   aria-label="Reset input"
                   variant="ghost"
                   className="!px-2"
+                  disabled={!field.value}
                   onClick={onClockResetButton}>
                   <EraserIcon className="size-6" />
                 </Button>
@@ -146,7 +147,7 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
                 Open
               </Button>
               <div className="min-h-5">
-                <FormMessage className="text-red-500" />
+                <FormMessage />
               </div>
             </FormItem>
           )}
@@ -158,14 +159,12 @@ function SearchForm({onComplected}: {onComplected?: () => void}) {
 
 export function SearchDialog() {
   const {isOpen, setOpen, close} = useSearchDialogStore()
-  const preventDefault = useCallback((e: Event) => e.preventDefault(), [])
 
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
-      <DialogContent onOpenAutoFocus={preventDefault}>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Open Github Repository</DialogTitle>
-          <DialogDescription>Enter the Github repository URL</DialogDescription>
         </DialogHeader>
         <SearchForm onComplected={close} />
       </DialogContent>

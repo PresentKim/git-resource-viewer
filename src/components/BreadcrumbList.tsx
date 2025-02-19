@@ -1,26 +1,20 @@
-import {Fragment} from 'react'
+import React, {Fragment} from 'react'
 import {cn} from '@/lib/utils'
 
-interface BreadcrumbProps {
+interface BreadcrumbProps extends React.ComponentProps<'span'> {
   items: (string | null)[]
-  className?: React.HTMLAttributes<HTMLSpanElement>['className']
-  separatorClassName?: string
-  ellipsisLength?: number
   separator?: React.ReactNode | null
 }
 
-export function BreadcrumbList({
-  items,
-  className,
-  separator,
-}: React.ComponentProps<React.FC<BreadcrumbProps>>) {
+export function BreadcrumbList({items, separator, className}: BreadcrumbProps) {
   return (
-    <div className="flex flex-wrap flex-1 gap-x-0.5">
+    <div className="flex flex-wrap flex-1 gap-x-1">
       {items.map(
         (item, index) =>
           item && (
             <Fragment key={index}>
-              {index > 0 && (separator || <span>/</span>)}
+              {index > 0 &&
+                (separator || <span className="text-muted-foreground">/</span>)}
               <span
                 key={index}
                 className={cn(

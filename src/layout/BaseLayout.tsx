@@ -27,7 +27,7 @@ function Header() {
       className={cn(
         'flex justify-between items-center align-middle duration-700',
         'w-full max-w-full px-4 py-2',
-        'shadow-xs shadow-neutral-800 bg-background',
+        'shadow-xs shadow-primary-foreground bg-background',
       )}>
       <div
         data-slot="header-title"
@@ -45,10 +45,7 @@ function Header() {
         ) : (
           <DropdownMenu>
             <DropdownMenuTrigger className="hover:cursor-pointer flex-1 w-full">
-              <BreadcrumbList
-                items={[owner, repo, ref]}
-                separator={<span className="text-neutral-500">/</span>}
-              />
+              <BreadcrumbList items={[owner, repo, ref]} />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
@@ -87,7 +84,7 @@ function Footer() {
   const {limit, remaining} = useGithubRateLimitStore()
 
   return (
-    <footer className="flex w-full items-center justify-center gap-0.5 py-4 text-xs text-neutral-400">
+    <footer className="flex w-full items-center justify-center gap-0.5 py-4 text-xs text-muted-foreground">
       <GithubIcon className="size-4" />
       <a
         href="https://github.com/PresentKim"
@@ -106,7 +103,7 @@ function Footer() {
       </a>
       <div
         aria-label="Github API rate limit"
-        className="fixed text-xs right-2 bottom-2 select-none">
+        className="fixed text-xs right-4 bottom-4 select-none">
         {remaining || '-'}/{limit || '-'}
       </div>
     </footer>

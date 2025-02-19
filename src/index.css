@@ -14,25 +14,25 @@
   image-rendering: pixelated;
   -ms-interpolation-mode: nearest-neighbor;
 
-  --background: #202020;
+  --background: #1d1d1d;
   --foreground: #e1e1e1;
-  --card: #202020;
-  --card-foreground: #e1e1e1;
-  --popover: #202020;
-  --popover-foreground: #e1e1e1;
+  --card: #2d2d2d;
+  --card-foreground: #ebebeb;
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
   --primary: #e1e1e1;
   --primary-foreground: #3a3a3a;
-  --secondary: #404040;
-  --secondary-foreground: #e1e1e1;
-  --muted: #404040;
-  --muted-foreground: #d1d1d1;
+  --secondary: #e1e1e1;
+  --secondary-foreground: #3a3a3a;
+  --muted: #5a5a5a;
+  --muted-foreground: #a1a1a1;
   --accent: #404040;
   --accent-foreground: #e1e1e1;
-  --destructive: hsl(0 62.8% 30.6%);
+  --destructive: hsl(0 70% 45%);
   --destructive-foreground: #e1e1e1;
   --border: #404040;
   --input: #404040;
-  --ring: #404040;
+  --ring: #e1e1e1;
   --chart-1: hsl(220 70% 50%);
   --chart-2: hsl(160 60% 45%);
   --chart-3: hsl(30 80% 55%);
@@ -60,6 +60,21 @@ a:not(:disabled) {
   cursor: pointer;
 }
 
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .hover-underlined {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all hover:after:w-full;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -80,6 +95,7 @@ a:not(:disabled) {
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-ring3: var(--ring);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -89,19 +105,4 @@ a:not(:disabled) {
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@layer utilities {
-  .hover-underlined {
-    @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all hover:after:w-full;
-  }
 }

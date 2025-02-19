@@ -47,33 +47,25 @@ export default function RepoView() {
   if (isLoadRef) {
     return (
       <RandomMessageLoader provider={generateBranchFetchMessage}>
-        <div className="flex items-center justify-center text-neutral-500 gap-2">
-          <GitBranchPlusIcon size={16} />
+        <div className="flex items-center justify-center gap-2 mt-8 text-lg">
+          <GitBranchPlusIcon />
           loading default branch...
-          <LoaderIcon size={16} className="animate-spin" />
+          <LoaderIcon className="animate-spin" />
         </div>
       </RandomMessageLoader>
     )
   } else if (isLoadImagePaths) {
     return (
       <RandomMessageLoader provider={generateImageFetchMessage}>
-        <div className="flex items-center justify-center text-neutral-500 gap-2">
-          <ImageIcon size={16} />
+        <div className="flex items-center justify-center gap-2 mt-8 text-lg">
+          <ImageIcon />
           loading images...
-          <LoaderIcon size={16} className="animate-spin" />
+          <LoaderIcon className="animate-spin" />
         </div>
       </RandomMessageLoader>
     )
   } else if (!imageFiles || !imageFiles.length) {
-    return (
-      <RandomMessageLoader provider={generateNoImagesMessage}>
-        <div className="flex items-center justify-center text-neutral-500 gap-2">
-          <ImageIcon size={16} />
-          no images found...
-          <ServerOffIcon size={16} />
-        </div>
-      </RandomMessageLoader>
-    )
+    return <RandomMessageLoader provider={generateNoImagesMessage} />
   }
 
   return (
@@ -82,7 +74,7 @@ export default function RepoView() {
         <TooltipProvider key={i}>
           <Tooltip>
             <TooltipTrigger
-              className="aspect-square relative select-none hover:ring-2 ring-white hover:rounded-xs transition-all"
+              className="aspect-square relative select-none hover:ring-2 ring-foreground hover:rounded-xs transition-all"
               style={{width: imageSize, height: imageSize}}>
               <img
                 src={`https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}`}
@@ -94,7 +86,7 @@ export default function RepoView() {
             <TooltipContent
               side="bottom"
               sticky="partial"
-              className="min-w-fit p-2 rounded-md bg-neutral-900 text-neutral-100 ring-1 ring-neutral-700">
+              className="min-w-fit p-2 rounded-md bg-card text-card-foreground ring-1 ring-muted-foreground">
               <p className="px-2 py-1">{path}</p>
             </TooltipContent>
           </Tooltip>

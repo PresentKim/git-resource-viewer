@@ -83,7 +83,7 @@ export default function Settings() {
                       id="input"
                       aria-label="Github Token input"
                       type={inputVisible ? 'text' : 'password'}
-                      className="transition-all text-xs md:text-sm placeholder:text-neutral-600"
+                      className="transition-all text-xs md:text-sm"
                       placeholder="github_pat_0123456789asdfghjkl..."
                       {...field}
                       onInput={onInput}

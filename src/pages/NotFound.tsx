@@ -1,5 +1,7 @@
 import {useCallback, useMemo, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
+
+import {Button} from '@/components/ui/button'
 import {cn} from '@/lib/utils'
 import {generateNotFoundMessage} from '@/lib/randomMessages'
 
@@ -19,24 +21,18 @@ export default function NotFound() {
     <main
       className={cn(
         'flex flex-col items-center justify-center h-full space-y-8 p-4',
-        'transition-opacity duration-500',
-        isRedirecting ? 'opacity-0' : 'opacity-100',
+        'opacity-100 transition-opacity duration-500',
+        {'opacity-0': isRedirecting},
       )}>
       <h1 className="text-6xl font-bold mb-4">404</h1>
       <h2 className="text-4xl font-semibold mb-6">{randomMessage.title}</h2>
-      <p className="text-gray-400 text-lg mb-8">
+      <p className="text-muted-foreground text-lg mb-8">
         Looks like <u>{pagePath}</u> {randomMessage.description}
       </p>
-      <p className="text-gray-400 text-lg italic">{randomMessage.footer}</p>
-      <button
-        onClick={handleGoBack}
-        className={cn(
-          'w-full sm:w-auto px-6 py-3',
-          'bg-neutral-700 text-white font-semibold rounded-lg shadow-md',
-          'hover:bg-neutral-800 hover:shadow-lg transition-colors',
-        )}>
-        Go Back Home
-      </button>
+      <p className="text-muted-foreground text-lg italic">
+        {randomMessage.footer}
+      </p>
+      <Button onClick={handleGoBack}>Go Back Home</Button>
     </main>
   )
 }

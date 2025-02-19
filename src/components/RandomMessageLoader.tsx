@@ -2,7 +2,7 @@ import {useMemo} from 'react'
 import type {RandomMessageGenerator} from '@/lib/randomMessages'
 import {cn} from '@/lib/utils'
 
-interface Props extends React.ComponentProps<'div'> {
+interface RandomMessageLoaderProps extends React.ComponentProps<'div'> {
   provider: RandomMessageGenerator
 }
 
@@ -11,19 +11,19 @@ export function RandomMessageLoader({
   className,
   children,
   ...props
-}: Props) {
+}: RandomMessageLoaderProps) {
   const {title, description, footer} = useMemo(provider, [provider])
 
   return (
     <div
       className={cn(
-        'flex flex-col items-center max-w-md mx-auto p-6 space-y-4 text-center',
+        'flex flex-col items-center max-w-md mx-auto p-6 space-y-4 text-center text-foreground',
         className,
       )}
       {...props}>
-      <h2 className="text-2xl font-bold text-neutral-200">{title}</h2>
-      <p className="text-neutral-400">{description}</p>
-      <footer className="text-sm text-neutral-400 italic">{footer}</footer>
+      <h2 className="text-2xl font-bold">{title}</h2>
+      <p className="text-lg">{description}</p>
+      <p className="text-lg italic">{footer}</p>
       {children}
     </div>
   )
