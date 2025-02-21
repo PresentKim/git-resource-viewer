@@ -80,9 +80,9 @@ export default function RepoView() {
   }
 
   return (
-    <div className="flex flex-wrap w-full gap-4 ">
-      {filteredImageFiles.map((path, i) => (
-        <TooltipProvider key={i}>
+    <div className="flex flex-wrap w-full justify-center  gap-4 ">
+      {filteredImageFiles.map(path => (
+        <TooltipProvider key={path}>
           <Tooltip>
             <TooltipTrigger
               className="aspect-square relative select-none hover:ring-2 ring-foreground hover:rounded-xs transition-all"
