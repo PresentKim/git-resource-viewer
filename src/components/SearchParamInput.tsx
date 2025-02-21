@@ -3,27 +3,33 @@ import {useSearchParams} from 'react-router-dom'
 import {InputHTMLAttributes, useEffect} from 'react'
 import {throttle} from '@/utils'
 
-interface FilterInputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface SearchParamInput extends InputHTMLAttributes<HTMLInputElement> {
+  param: string
   value: string
   setValue: (value: string) => void
 }
 
-export function FilterInput({value, setValue, ...props}: FilterInputProps) {
+export function SearchParamInput({
+  param,
+  value,
+  setValue,
+  ...props
+}: SearchParamInput) {
   const [searchParams, setSearchParams] = useSearchParams()
 
   // Initialize input value from URL query parameter
   useEffect(() => {
-    const filterParam = searchParams.get('filter') || ''
+    const filterParam = searchParams.get(param) || ''
     setValue(filterParam)
-  }, [searchParams, setValue])
+  }, [searchParams, setValue, param])
 
   // Update URL query parameter with throttled function
   const updateQueryParam = throttle((newValue: string) => {
     const params = new URLSearchParams(searchParams)
     if (newValue) {
-      params.set('filter', newValue)
+      params.set(param, newValue)
     } else {
-      params.delete('filter')
+      params.delete(param)
     }
     setSearchParams(params)
   }, 100)
