@@ -16,7 +16,7 @@ import {FloatingHeader} from '@/components/FloatingHeader'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {useSearchDialogStore} from '@/stores/searchDialogStore'
 import {useFilterStore} from '@/stores/useFilterStore'
-import {cn} from '@/utils'
+import {cn, debounce} from '@/utils'
 
 export default function Header({
   className,
@@ -25,12 +25,13 @@ export default function Header({
   const [{owner, repo, ref}] = useTargetRepository()
   const openSearchDialog = useSearchDialogStore(state => state.open)
   const filter = useFilterStore(state => state.getFilter())
-  const setFilter = useFilterStore(state => state.setFilter)
+  const setFilter = debounce(
+    useFilterStore(state => state.setFilter),
+    300,
+  )
 
   const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFilter(e.target.value)
-    },
+    (e: React.ChangeEvent<HTMLInputElement>) => setFilter(e.target.value),
     [setFilter],
   )
 
@@ -85,7 +86,7 @@ export default function Header({
         data-slot="header-side"
         className="flex items-center h-full ml-8 gap-2">
         <Input
-          value={filter}
+          defaultValue={filter}
           onChange={handleInputChange}
           placeholder="includes -excludes"
           className="w-40"></Input>
