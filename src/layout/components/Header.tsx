@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {NavLink} from 'react-router-dom'
 import {SettingsIcon} from 'lucide-react'
 import {
@@ -8,16 +9,30 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import {Button} from '@/components/ui/button'
+import {Input} from '@/components/ui/input'
 import {BreadcrumbList} from '@/components/BreadcrumbList'
 import {LogoIcon as HeaderIcon} from '@/components/LogoIcon'
 import {FloatingHeader} from '@/components/FloatingHeader'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {useSearchDialogStore} from '@/stores/searchDialogStore'
+import {useFilterStore} from '@/stores/useFilterStore'
 import {cn} from '@/utils'
 
-export default function Header() {
+export default function Header({
+  className,
+  ...props
+}: React.InputHTMLAttributes<HTMLInputElement>) {
   const [{owner, repo, ref}] = useTargetRepository()
   const openSearchDialog = useSearchDialogStore(state => state.open)
+  const filter = useFilterStore(state => state.getFilter())
+  const setFilter = useFilterStore(state => state.setFilter)
+
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilter(e.target.value)
+    },
+    [setFilter],
+  )
 
   return (
     <FloatingHeader
@@ -26,7 +41,9 @@ export default function Header() {
         'flex justify-between items-center align-middle duration-700',
         'w-full max-w-full px-4 py-2',
         'shadow-xs shadow-primary-foreground bg-background',
-      )}>
+        className,
+      )}
+      {...props}>
       <div
         data-slot="header-title"
         className="flex flex-1 items-center h-full min-h-10 min-w-0 gap-2">
@@ -67,6 +84,11 @@ export default function Header() {
       <div
         data-slot="header-side"
         className="flex items-center h-full ml-8 gap-2">
+        <Input
+          value={filter}
+          onChange={handleInputChange}
+          placeholder="includes -excludes"
+          className="w-40"></Input>
         <NavLink
           to="/settings"
           aria-label="Settings"

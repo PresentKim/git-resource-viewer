@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {GitBranchPlusIcon, ImageIcon, LoaderIcon} from 'lucide-react'
 import {
   Tooltip,
@@ -19,6 +19,7 @@ import {
   generateImageFetchMessage,
   generateNoImagesMessage,
 } from '@/utils/randomMessages'
+import {useFilterStore} from '@/stores/useFilterStore'
 
 export default function RepoView() {
   const [{owner, repo, ref}, setTargetRepository] = useTargetRepository()
@@ -26,6 +27,8 @@ export default function RepoView() {
   const [isLoadImagePaths, getImagePaths] = usePromise(useGithubImageFileTree())
   const [imageFiles, setImageFiles] = useState<GithubImageFile[] | null>(null)
   const [imageSize] = useState(64)
+  const filter = useFilterStore(state => state.getFilter())
+  const filters = useMemo(() => filter.split(' ').filter(Boolean), [filter])
 
   useEffect(() => {
     if (owner && repo && !ref) {
@@ -38,6 +41,19 @@ export default function RepoView() {
         .catch(console.error)
     }
   }, [owner, repo, ref, getDefaultBranch, setTargetRepository, getImagePaths])
+
+  const filteredImageFiles = useMemo(() => {
+    return imageFiles?.filter(path => {
+      return filters.reduce((acc, filter) => {
+        if (!acc || !filter) return acc
+        if (filter.startsWith('-')) {
+          return !path.includes(filter.slice(1))
+        }
+
+        return path.includes(filter)
+      }, true)
+    })
+  }, [imageFiles, filters])
 
   if (isLoadRef) {
     return (
@@ -59,13 +75,13 @@ export default function RepoView() {
         </div>
       </RandomMessageLoader>
     )
-  } else if (!imageFiles || !imageFiles.length) {
+  } else if (!filteredImageFiles || !filteredImageFiles.length) {
     return <RandomMessageLoader provider={generateNoImagesMessage} />
   }
 
   return (
-    <div className="flex flex-wrap gap-4">
-      {imageFiles.map((path, i) => (
+    <div className="flex flex-wrap w-full gap-4 ">
+      {filteredImageFiles.map((path, i) => (
         <TooltipProvider key={i}>
           <Tooltip>
             <TooltipTrigger
