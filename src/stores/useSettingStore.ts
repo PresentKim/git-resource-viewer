@@ -6,23 +6,6 @@ interface SettingState {
 }
 type SettingName = Exclude<keyof SettingState, `set${string}`>
 
-function adjustSearchQueryParam(
-  search: string,
-  name: SettingName,
-  value: string,
-  defaultValue: string,
-) {
-  const searchParams = new URLSearchParams(search)
-  if (value !== defaultValue) {
-    searchParams.set(name, value)
-  } else {
-    searchParams.delete(name)
-  }
-
-  const searchParamsString = searchParams.toString()
-  return searchParamsString ? '?' + searchParamsString : ''
-}
-
 function getSearchParam<K extends SettingName>(
   name: K,
   defaultValue: SettingState[K],
@@ -54,12 +37,15 @@ function creatSearchParamSetter<K extends SettingName>(
       : window.location.search
 
     // Convert value to string for URL parameters
-    const newSearch = adjustSearchQueryParam(
-      search,
-      name,
-      String(value),
-      String(defaultValue),
-    )
+    const searchParams = new URLSearchParams(search)
+    if (value !== defaultValue) {
+      searchParams.set(name, value)
+    } else {
+      searchParams.delete(name)
+    }
+    const searchParamsString = searchParams.toString()
+
+    const newSearch = searchParamsString ? '?' + searchParamsString : ''
     window.history.replaceState({}, '', path + newSearch)
 
     // Update the state with the proper typed value
