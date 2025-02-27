@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback, useState} from 'react'
 import {useForm} from 'react-hook-form'
 import {EraserIcon} from 'lucide-react'
 
@@ -20,7 +20,7 @@ type FormValues = {
 }
 
 export default function Settings() {
-  const {getGithubToken, setGithubToken, clearGithubToken} =
+  const {githubToken, setGithubToken, clearGithubToken} =
     useGithubApiTokenStore()
   const [inputVisible, setInputVisible] = useState(false)
 
@@ -29,10 +29,6 @@ export default function Settings() {
       input: '',
     },
   })
-
-  useEffect(() => {
-    getGithubToken().then(token => token && form.setValue('input', token))
-  }, [getGithubToken, form])
 
   const onSubmit = useCallback(
     ({input}: FormValues) => {
@@ -78,7 +74,9 @@ export default function Settings() {
                 </FormLabel>
 
                 <div className="flex gap-1">
-                  <FormControl className="flex-1">
+                  <FormControl
+                    className="flex-1"
+                    defaultValue={githubToken ?? ''}>
                     <Input
                       id="input"
                       aria-label="Github Token input"

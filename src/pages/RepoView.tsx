@@ -8,12 +8,10 @@ import {
 } from '@/components/ui/tooltip'
 import {RandomMessageLoader} from '@/components/RandomMessageLoader'
 import {FlexGrid} from '@/components/FlexGrid'
+import {useGithubDefaultBranch} from '@/api/github/hooks/useGithubDefaultBranch'
+import {useGithubImageFileTree} from '@/api/github/hooks/useGithubImageFileTree'
+import type {GithubImageFileTree} from '@/api/github/types'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
-import {
-  useGithubDefaultBranch,
-  useGithubImageFileTree,
-  type GithubImageFile,
-} from '@/hooks/useGithubApi'
 import {usePromise} from '@/hooks/usePromise'
 import {
   generateBranchFetchMessage,
@@ -26,25 +24,25 @@ export default function RepoView() {
   const [{owner, repo, ref}, setTargetRepository] = useTargetRepository()
   const [isLoadRef, getDefaultBranch] = usePromise(useGithubDefaultBranch())
   const [isLoadImagePaths, getImagePaths] = usePromise(useGithubImageFileTree())
-  const [imageFiles, setImageFiles] = useState<GithubImageFile[] | null>(null)
+  const [imageFiles, setImageFiles] = useState<GithubImageFileTree | null>(null)
   const imageColumns = useMemo(() => Math.floor(window.innerWidth / 64), [])
   const filter = useSettingStore(state => state.filter)
   const filters = useMemo(() => filter.split(' ').filter(Boolean), [filter])
 
   useEffect(() => {
     if (owner && repo && !ref) {
-      getDefaultBranch(owner, repo)
+      getDefaultBranch({owner, repo})
         .then(defaultBranch => setTargetRepository(owner, repo, defaultBranch))
         .catch(console.error)
     } else {
-      getImagePaths(owner, repo, ref)
+      getImagePaths({owner, repo, ref})
         .then(imageFileTree => setImageFiles(imageFileTree))
         .catch(console.error)
     }
   }, [owner, repo, ref, getDefaultBranch, setTargetRepository, getImagePaths])
 
   const filteredImageFiles = useMemo(() => {
-    return imageFiles?.filter(path => {
+    const result = imageFiles?.filter(path => {
       return filters.reduce((acc, filter) => {
         if (!acc || !filter) return acc
         if (filter.startsWith('-')) {
@@ -54,6 +52,7 @@ export default function RepoView() {
         return path.includes(filter)
       }, true)
     })
+    return result
   }, [imageFiles, filters])
 
   if (isLoadRef) {
