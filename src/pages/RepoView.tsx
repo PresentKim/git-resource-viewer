@@ -28,7 +28,7 @@ export default function RepoView() {
   const [isLoadImagePaths, getImagePaths] = usePromise(useGithubImageFileTree())
   const [imageFiles, setImageFiles] = useState<GithubImageFile[] | null>(null)
   const imageColumns = useMemo(() => Math.floor(window.innerWidth / 64), [])
-  const filter = useSettingStore(state => state.getFilter())
+  const filter = useSettingStore(state => state.filter)
   const filters = useMemo(() => filter.split(' ').filter(Boolean), [filter])
 
   useEffect(() => {

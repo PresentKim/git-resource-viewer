@@ -24,7 +24,7 @@ export default function Header({
 }: React.InputHTMLAttributes<HTMLInputElement>) {
   const [{owner, repo, ref}] = useTargetRepository()
   const openSearchDialog = useSearchDialogStore(state => state.open)
-  const filter = useSettingStore(state => state.getFilter())
+  const filter = useSettingStore(state => state.filter)
   const setFilter = debounce(
     useSettingStore(state => state.setFilter),
     300,

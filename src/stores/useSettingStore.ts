@@ -1,15 +1,16 @@
 import {create} from 'zustand'
 
 interface SettingState {
-  getFilter: () => string
+  filter: string
   setFilter: (filter: string) => void
 }
+type SettingName = Exclude<keyof SettingState, `set${string}`>
 
 function adjustSearchQueryParam(
   search: string,
-  name: string,
+  name: SettingName,
   value: string,
-  defaultValue: string = '',
+  defaultValue: string,
 ) {
   const searchParams = new URLSearchParams(search)
   if (value !== defaultValue) {
@@ -22,41 +23,57 @@ function adjustSearchQueryParam(
   return searchParamsString ? '?' + searchParamsString : ''
 }
 
-function createSearchParamGetter(name: string) {
-  return () => {
-    const search = window.location.hash.startsWith('#/')
-      ? window.location.hash.split('?')[1]
+function getSearchParam<K extends SettingName>(
+  name: K,
+  defaultValue: SettingState[K],
+) {
+  const search = window.location.hash.startsWith('#/')
+    ? window.location.hash.split('?')[1]
+    : window.location.search
+  return new URLSearchParams(search).get(name) || defaultValue
+}
+
+function creatSearchParamSetter<K extends SettingName>(
+  set: (
+    partial:
+      | SettingState
+      | Partial<SettingState>
+      | ((state: SettingState) => SettingState | Partial<SettingState>),
+    replace?: false,
+  ) => void,
+  name: K,
+  defaultValue: SettingState[K],
+) {
+  return (value: SettingState[K]) => {
+    const isHashRouter = window.location.hash.startsWith('#/')
+    const path = isHashRouter
+      ? window.location.pathname + window.location.hash.split('?')[0]
+      : window.location.pathname
+    const search = isHashRouter
+      ? window.location.hash.split('?')[1] || ''
       : window.location.search
-    return new URLSearchParams(search).get(name) || ''
+
+    // Convert value to string for URL parameters
+    const newSearch = adjustSearchQueryParam(
+      search,
+      name,
+      String(value),
+      String(defaultValue),
+    )
+    window.history.replaceState({}, '', path + newSearch)
+
+    // Update the state with the proper typed value
+    set({[name]: value} as Partial<SettingState>)
   }
 }
 
-function creatSearchParamSetter(name: string, defaultValue: string = '') {
-  return (value: string) => {
-    if (window.location.hash.startsWith('#/')) {
-      const [hash, search] = window.location.hash.split('?')
-      window.location.hash =
-        hash + adjustSearchQueryParam(search, name, value, defaultValue)
-    } else {
-      const path = window.location.pathname
-      const search = window.location.search
-      window.history.pushState(
-        {},
-        '',
-        path + adjustSearchQueryParam(search, name, value, defaultValue),
-      )
-    }
-  }
-}
-
-const FILTER_NAME = 'q'
 /**
  * Store for managing the setting state.
  *
  * The filter state is stored in the URL query string.
  * It supports both hash router and browser router
  */
-export const useSettingStore = create<SettingState>(() => ({
-  getFilter: createSearchParamGetter(FILTER_NAME),
-  setFilter: creatSearchParamSetter(FILTER_NAME),
+export const useSettingStore = create<SettingState>(set => ({
+  filter: getSearchParam('filter', ''),
+  setFilter: creatSearchParamSetter(set, 'filter', ''),
 }))
