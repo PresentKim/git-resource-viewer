@@ -20,7 +20,7 @@ import {
   generateImageFetchMessage,
   generateNoImagesMessage,
 } from '@/utils/randomMessages'
-import {useFilterStore} from '@/stores/useFilterStore'
+import {useSettingStore} from '@/stores/useSettingStore'
 
 export default function RepoView() {
   const [{owner, repo, ref}, setTargetRepository] = useTargetRepository()
@@ -28,7 +28,7 @@ export default function RepoView() {
   const [isLoadImagePaths, getImagePaths] = usePromise(useGithubImageFileTree())
   const [imageFiles, setImageFiles] = useState<GithubImageFile[] | null>(null)
   const imageColumns = useMemo(() => Math.floor(window.innerWidth / 64), [])
-  const filter = useFilterStore(state => state.getFilter())
+  const filter = useSettingStore(state => state.getFilter())
   const filters = useMemo(() => filter.split(' ').filter(Boolean), [filter])
 
   useEffect(() => {

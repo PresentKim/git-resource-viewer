@@ -15,7 +15,7 @@ import {LogoIcon as HeaderIcon} from '@/components/LogoIcon'
 import {FloatingHeader} from '@/components/FloatingHeader'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {useSearchDialogStore} from '@/stores/searchDialogStore'
-import {useFilterStore} from '@/stores/useFilterStore'
+import {useSettingStore} from '@/stores/useSettingStore'
 import {cn, debounce} from '@/utils'
 
 export default function Header({
@@ -24,9 +24,9 @@ export default function Header({
 }: React.InputHTMLAttributes<HTMLInputElement>) {
   const [{owner, repo, ref}] = useTargetRepository()
   const openSearchDialog = useSearchDialogStore(state => state.open)
-  const filter = useFilterStore(state => state.getFilter())
+  const filter = useSettingStore(state => state.getFilter())
   const setFilter = debounce(
-    useFilterStore(state => state.setFilter),
+    useSettingStore(state => state.setFilter),
     300,
   )
 
