@@ -7,6 +7,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import {RandomMessageLoader} from '@/components/RandomMessageLoader'
+import {FlexGrid} from '@/components/FlexGrid'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
 import {
   useGithubDefaultBranch,
@@ -26,7 +27,7 @@ export default function RepoView() {
   const [isLoadRef, getDefaultBranch] = usePromise(useGithubDefaultBranch())
   const [isLoadImagePaths, getImagePaths] = usePromise(useGithubImageFileTree())
   const [imageFiles, setImageFiles] = useState<GithubImageFile[] | null>(null)
-  const [imageSize] = useState(64)
+  const imageColumns = useMemo(() => Math.floor(window.innerWidth / 64), [])
   const filter = useFilterStore(state => state.getFilter())
   const filters = useMemo(() => filter.split(' ').filter(Boolean), [filter])
 
@@ -80,13 +81,11 @@ export default function RepoView() {
   }
 
   return (
-    <div className="flex flex-wrap w-full justify-center  gap-4 ">
+    <FlexGrid columns={imageColumns} gap={8}>
       {filteredImageFiles.map(path => (
         <TooltipProvider key={path}>
           <Tooltip>
-            <TooltipTrigger
-              className="aspect-square relative select-none hover:ring-2 ring-foreground hover:rounded-xs transition-all"
-              style={{width: imageSize, height: imageSize}}>
+            <TooltipTrigger className="aspect-square select-none hover:ring-2 ring-foreground hover:rounded-xs transition-all">
               <img
                 src={`https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}`}
                 alt={path}
@@ -103,6 +102,6 @@ export default function RepoView() {
           </Tooltip>
         </TooltipProvider>
       ))}
-    </div>
+    </FlexGrid>
   )
 }
