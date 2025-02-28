@@ -38,10 +38,21 @@ const ImageCell = memo(function ImageCell({
   path,
   itemSize,
 }: ImageCellProps) {
-  return (
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
+  return isTouchDevice ? (
+    <div className="aspect-square size-full ring-foreground transition-all active:ring-2 active:rounded-xs">
+      <img
+        src={`https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}`}
+        alt={path}
+        className="size-full object-contain"
+        style={{width: itemSize, height: itemSize}}
+      />
+    </div>
+  ) : (
     <TooltipProvider key={path}>
       <Tooltip>
-        <TooltipTrigger className="aspect-square select-none size-full hover:ring-2 ring-foreground hover:rounded-xs transition-all">
+        <TooltipTrigger className="aspect-square size-full ring-foreground transition-all hover:ring-2 hover:rounded-xs">
           <img
             src={`https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}`}
             alt={path}
