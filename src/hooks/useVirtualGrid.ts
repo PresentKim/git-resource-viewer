@@ -7,18 +7,33 @@ interface VirtualGridResult<T> {
   visibleItems: {item: T; originalIndex: number}[]
 }
 
+function getRenderedItemsPerRow(
+  containerRef: React.RefObject<HTMLElement | null>,
+): number {
+  if (!containerRef?.current?.children?.length) return 0
+
+  const items = Array.from(containerRef.current.children) as HTMLElement[]
+  const firstItemTop = items[0].offsetTop
+  let count = 0
+  for (const item of items) {
+    if (item.offsetTop !== firstItemTop) break
+    count++
+  }
+
+  return count
+}
+
 function useVirtualGrid<T>(
+  containerRef: React.RefObject<HTMLElement | null>,
   items: T[],
-  gridWidth: number,
   visibleHeight: number,
   scrollTop: number,
-  itemWidth: number,
   itemHeight: number,
   gap: number,
   overscan: number,
 ): VirtualGridResult<T> {
   // Calculate number of columns based on container width and item width + gap
-  const columnCount = Math.max(1, Math.ceil(gridWidth / (itemWidth + gap)))
+  const columnCount = Math.max(1, getRenderedItemsPerRow(containerRef))
   const totalItems = items.length
   const rowCount = Math.ceil(totalItems / columnCount)
   const totalHeight = rowCount * (itemHeight + gap) - gap

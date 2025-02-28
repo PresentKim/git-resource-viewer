@@ -1,5 +1,5 @@
 import {useRef} from 'react'
-import {useContainerDimensions} from '@/hooks/useDimensions'
+import {useVisibleHeight} from '@/hooks/useVisibleHeight'
 import {useScrollOffset} from '@/hooks/useScrollOffset'
 import {useVirtualGrid} from '@/hooks/useVirtualGrid'
 import {cn} from '@/utils'
@@ -25,17 +25,16 @@ function VirtualizedFlexGrid<T>({
   className,
   overscan = 0,
 }: VirtualizedFlexGridProps<T>): React.ReactElement {
+  const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const {width: containerWidth, visibleHeight} =
-    useContainerDimensions(containerRef)
-  const scrollTop = useScrollOffset(containerRef)
+  const visibleHeight = useVisibleHeight(wrapperRef)
+  const scrollTop = useScrollOffset(wrapperRef)
 
   const {totalHeight, offsetTop, visibleItems} = useVirtualGrid(
+    containerRef,
     items,
-    containerWidth,
     visibleHeight,
     scrollTop,
-    itemWidth,
     itemHeight,
     gap,
     overscan,
@@ -43,13 +42,14 @@ function VirtualizedFlexGrid<T>({
 
   return (
     <div
-      ref={containerRef}
+      ref={wrapperRef}
       className={cn('relative w-full', className)}
       style={{
         paddingTop: offsetTop,
         height: totalHeight,
       }}>
       <div
+        ref={containerRef}
         className="flex flex-wrap items-start"
         style={{
           gap: gap,
