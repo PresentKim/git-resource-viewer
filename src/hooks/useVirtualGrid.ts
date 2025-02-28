@@ -18,7 +18,7 @@ function useVirtualGrid<T>(
   overscan: number,
 ): VirtualGridResult<T> {
   // Calculate number of columns based on container width and item width + gap
-  const columnCount = Math.max(1, Math.floor(gridWidth / (itemWidth + gap)))
+  const columnCount = Math.max(1, Math.ceil(gridWidth / (itemWidth + gap)))
   const totalItems = items.length
   const rowCount = Math.ceil(totalItems / columnCount)
   const totalHeight = rowCount * (itemHeight + gap) - gap
