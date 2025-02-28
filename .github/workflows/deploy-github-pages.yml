@@ -20,7 +20,7 @@ jobs:
 
       - name: Build project
         env:
-          VITE_BASE_URL: '/repo-image-viewer/'
+          VITE_BASE_URL: '/'
         run: yarn build
 
       - name: Deploy to GitHub Pages
