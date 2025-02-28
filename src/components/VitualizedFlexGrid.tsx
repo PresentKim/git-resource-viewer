@@ -3,6 +3,7 @@ import {useVisibleHeight} from '@/hooks/useVisibleHeight'
 import {useScrollOffset} from '@/hooks/useScrollOffset'
 import {useVirtualGrid} from '@/hooks/useVirtualGrid'
 import {cn} from '@/utils'
+import {useColumnCount} from '@/hooks/useColumnCount'
 
 type RenderData<T> = {index: number; item: T}
 
@@ -28,14 +29,15 @@ function VirtualizedFlexGrid<T>({
   const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const visibleHeight = useVisibleHeight(wrapperRef)
-  const scrollTop = useScrollOffset(wrapperRef)
+  const scrollOffset = useScrollOffset(wrapperRef)
+  const columnCount = Math.max(1, useColumnCount(containerRef))
 
   const {totalHeight, offsetTop, visibleItems} = useVirtualGrid(
-    containerRef,
     items,
     visibleHeight,
-    scrollTop,
+    scrollOffset,
     itemHeight,
+    columnCount,
     gap,
     overscan,
   )
