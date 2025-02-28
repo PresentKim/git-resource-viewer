@@ -1,8 +1,8 @@
 import type {DefaultBranchRequest, GithubDefaultBranch} from '../types'
 import {useGithubWorker} from './useGithubBaseWorker'
+import workerUrl from '../workers/defaultBranchWorker.ts?worker&url'
 
 export function useGithubDefaultBranch() {
-  return useGithubWorker<DefaultBranchRequest, GithubDefaultBranch>(
-    String(new URL('../workers/defaultBranchWorker.ts', import.meta.url)),
-  )
+  const worker = String(new URL(workerUrl, import.meta.url))
+  return useGithubWorker<DefaultBranchRequest, GithubDefaultBranch>(worker)
 }

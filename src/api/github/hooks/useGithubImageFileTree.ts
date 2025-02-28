@@ -1,8 +1,8 @@
 import type {GithubImageFileTree, ImageFileTreeRequest} from '../types'
 import {useGithubWorker} from './useGithubBaseWorker'
+import workerUrl from '../workers/imageFileTreeWorker.ts?worker&url'
 
 export function useGithubImageFileTree() {
-  return useGithubWorker<ImageFileTreeRequest, GithubImageFileTree>(
-    String(new URL('../workers/imageFileTreeWorker.ts', import.meta.url)),
-  )
+  const worker = String(new URL(workerUrl, import.meta.url))
+  return useGithubWorker<ImageFileTreeRequest, GithubImageFileTree>(worker)
 }
