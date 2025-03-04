@@ -15,13 +15,13 @@ import {useGithubDefaultBranch} from '@/api/github/hooks/useGithubDefaultBranch'
 import {useGithubImageFileTree} from '@/api/github/hooks/useGithubImageFileTree'
 import type {GithubImageFileTree} from '@/api/github/types'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
+import {useFilterQuery} from '@/hooks/useFilterQuery'
 import {usePromise} from '@/hooks/usePromise'
 import {
   generateBranchFetchMessage,
   generateImageFetchMessage,
   generateNoImagesMessage,
 } from '@/utils/randomMessages'
-import {useSettingStore} from '@/stores/useSettingStore'
 
 interface ImageCellProps {
   owner: string
@@ -76,7 +76,8 @@ export default function RepoView() {
   const [isLoadRef, getDefaultBranch] = usePromise(useGithubDefaultBranch())
   const [isLoadImagePaths, getImagePaths] = usePromise(useGithubImageFileTree())
   const [imageFiles, setImageFiles] = useState<GithubImageFileTree | null>(null)
-  const filter = useSettingStore(state => state.filter)
+
+  const [filter] = useFilterQuery()
   const filters = useMemo(() => filter.split(' ').filter(Boolean), [filter])
   const ITEM_SIZE = 64
 

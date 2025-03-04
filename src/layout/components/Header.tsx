@@ -14,8 +14,8 @@ import {BreadcrumbList} from '@/components/BreadcrumbList'
 import {LogoIcon as HeaderIcon} from '@/components/LogoIcon'
 import {FloatingHeader} from '@/components/FloatingHeader'
 import {useTargetRepository} from '@/hooks/useTargetRepository'
+import {useFilterQuery} from '@/hooks/useFilterQuery'
 import {useSearchDialogStore} from '@/stores/searchDialogStore'
-import {useSettingStore} from '@/stores/useSettingStore'
 import {cn, debounce} from '@/utils'
 
 export default function Header({
@@ -24,11 +24,9 @@ export default function Header({
 }: React.InputHTMLAttributes<HTMLInputElement>) {
   const [{owner, repo, ref}] = useTargetRepository()
   const openSearchDialog = useSearchDialogStore(state => state.open)
-  const filter = useSettingStore(state => state.filter)
-  const setFilter = debounce(
-    useSettingStore(state => state.setFilter),
-    300,
-  )
+
+  const [filter, setFilterQuery] = useFilterQuery()
+  const setFilter = debounce(setFilterQuery, 300)
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => setFilter(e.target.value),
