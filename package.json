@@ -25,6 +25,7 @@
     "clsx": "^2.1.1",
     "idb-keyval": "^6.2.1",
     "lucide-react": "^0.475.0",
+    "nuqs": "^2.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",

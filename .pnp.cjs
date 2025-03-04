@@ -49,6 +49,7 @@ const RAW_RUNTIME_STATE =
           ["globals", "npm:15.15.0"],\
           ["idb-keyval", "npm:6.2.1"],\
           ["lucide-react", "virtual:c7e3fb0b310fd7b08aef97a8f1e61829b06820e80439555ef534e28c0e6bd91ab24640dff3009c57e684dae3ea0be1f256f9e7d3d1025d5c524ced5d195a9d1e#npm:0.475.0"],\
+          ["nuqs", "virtual:c7e3fb0b310fd7b08aef97a8f1e61829b06820e80439555ef534e28c0e6bd91ab24640dff3009c57e684dae3ea0be1f256f9e7d3d1025d5c524ced5d195a9d1e#npm:2.4.0"],\
           ["prettier", "npm:3.5.1"],\
           ["react", "npm:19.0.0"],\
           ["react-dom", "virtual:c7e3fb0b310fd7b08aef97a8f1e61829b06820e80439555ef534e28c0e6bd91ab24640dff3009c57e684dae3ea0be1f256f9e7d3d1025d5c524ced5d195a9d1e#npm:19.0.0"],\
@@ -3884,6 +3885,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["mitt", [\
+      ["npm:3.0.1", {\
+        "packageLocation": "./.yarn/cache/mitt-npm-3.0.1-ce290ffa77-3ab4fdecf3.zip/node_modules/mitt/",\
+        "packageDependencies": [\
+          ["mitt", "npm:3.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["mkdirp", [\
       ["npm:3.0.1", {\
         "packageLocation": "./.yarn/cache/mkdirp-npm-3.0.1-f94bfa769e-9f2b975e92.zip/node_modules/mkdirp/",\
@@ -3963,6 +3973,45 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["nopt", "npm:8.1.0"],\
           ["abbrev", "npm:3.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["nuqs", [\
+      ["npm:2.4.0", {\
+        "packageLocation": "./.yarn/cache/nuqs-npm-2.4.0-2bb486fc2a-19d6e973a2.zip/node_modules/nuqs/",\
+        "packageDependencies": [\
+          ["nuqs", "npm:2.4.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:c7e3fb0b310fd7b08aef97a8f1e61829b06820e80439555ef534e28c0e6bd91ab24640dff3009c57e684dae3ea0be1f256f9e7d3d1025d5c524ced5d195a9d1e#npm:2.4.0", {\
+        "packageLocation": "./.yarn/__virtual__/nuqs-virtual-6dfe9cfa81/0/cache/nuqs-npm-2.4.0-2bb486fc2a-19d6e973a2.zip/node_modules/nuqs/",\
+        "packageDependencies": [\
+          ["nuqs", "virtual:c7e3fb0b310fd7b08aef97a8f1e61829b06820e80439555ef534e28c0e6bd91ab24640dff3009c57e684dae3ea0be1f256f9e7d3d1025d5c524ced5d195a9d1e#npm:2.4.0"],\
+          ["@remix-run/react", null],\
+          ["@types/next", null],\
+          ["@types/react", "npm:19.0.8"],\
+          ["@types/react-router", null],\
+          ["@types/react-router-dom", null],\
+          ["@types/remix-run__react", null],\
+          ["mitt", "npm:3.0.1"],\
+          ["next", null],\
+          ["react", "npm:19.0.0"],\
+          ["react-router", null],\
+          ["react-router-dom", "virtual:c7e3fb0b310fd7b08aef97a8f1e61829b06820e80439555ef534e28c0e6bd91ab24640dff3009c57e684dae3ea0be1f256f9e7d3d1025d5c524ced5d195a9d1e#npm:7.1.5"]\
+        ],\
+        "packagePeers": [\
+          "@remix-run/react",\
+          "@types/next",\
+          "@types/react-router-dom",\
+          "@types/react-router",\
+          "@types/react",\
+          "@types/remix-run__react",\
+          "next",\
+          "react-router-dom",\
+          "react-router",\
+          "react"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4367,6 +4416,7 @@ const RAW_RUNTIME_STATE =
           ["globals", "npm:15.15.0"],\
           ["idb-keyval", "npm:6.2.1"],\
           ["lucide-react", "virtual:c7e3fb0b310fd7b08aef97a8f1e61829b06820e80439555ef534e28c0e6bd91ab24640dff3009c57e684dae3ea0be1f256f9e7d3d1025d5c524ced5d195a9d1e#npm:0.475.0"],\
+          ["nuqs", "virtual:c7e3fb0b310fd7b08aef97a8f1e61829b06820e80439555ef534e28c0e6bd91ab24640dff3009c57e684dae3ea0be1f256f9e7d3d1025d5c524ced5d195a9d1e#npm:2.4.0"],\
           ["prettier", "npm:3.5.1"],\
           ["react", "npm:19.0.0"],\
           ["react-dom", "virtual:c7e3fb0b310fd7b08aef97a8f1e61829b06820e80439555ef534e28c0e6bd91ab24640dff3009c57e684dae3ea0be1f256f9e7d3d1025d5c524ced5d195a9d1e#npm:19.0.0"],\
