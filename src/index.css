@@ -55,6 +55,10 @@ body,
   padding: 0;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 button:not(:disabled),
 a:not(:disabled) {
   cursor: pointer;
