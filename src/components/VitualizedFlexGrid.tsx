@@ -3,15 +3,14 @@ import {useVisibleHeight} from '@/hooks/useVisibleHeight'
 import {useScrollOffset} from '@/hooks/useScrollOffset'
 import {useVirtualGrid} from '@/hooks/useVirtualGrid'
 import {cn} from '@/utils'
-import {useColumnCount} from '@/hooks/useColumnCount'
+import {useItemSize} from '@/hooks/useItemSize'
 
 type RenderData<T> = {index: number; item: T}
 
 interface VirtualizedFlexGridProps<T> {
   items: T[]
   render: (data: RenderData<T>) => React.ReactNode
-  itemWidth: number
-  itemHeight: number
+  columnCount: number
   gap?: number
   className?: string
   overscan?: number // Additional rows to render beyond the visible area
@@ -19,26 +18,25 @@ interface VirtualizedFlexGridProps<T> {
 
 function VirtualizedFlexGrid<T>({
   items,
-  render,
-  itemWidth,
-  itemHeight,
-  gap = 10,
-  className,
+  columnCount,
   overscan = 0,
-}: VirtualizedFlexGridProps<T>): React.ReactElement {
+  gap = 10,
+  render,
+  className,
+}: VirtualizedFlexGridProps<T>) {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const visibleHeight = useVisibleHeight(wrapperRef)
   const scrollOffset = useScrollOffset(wrapperRef)
-  const columnCount = Math.max(1, useColumnCount(containerRef))
+  const itemSize = useItemSize(containerRef, columnCount, gap)
 
-  const {totalHeight, offsetTop, visibleItems} = useVirtualGrid(
-    items,
-    visibleHeight,
-    scrollOffset,
-    itemHeight,
+  const {totalHeight, offsetTop, visibleIndexs} = useVirtualGrid(
+    items.length,
     columnCount,
+    visibleHeight,
+    itemSize,
     gap,
+    scrollOffset,
     overscan,
   )
 
@@ -56,14 +54,13 @@ function VirtualizedFlexGrid<T>({
         style={{
           gap: gap,
         }}>
-        {visibleItems.map(({item, originalIndex}) => (
+        {visibleIndexs.map(originalIndex => (
           <div
             key={originalIndex}
             style={{
-              width: itemWidth,
-              height: itemHeight,
+              flexBasis: `calc(100% / ${columnCount} - ${gap}px)`,
             }}>
-            {render({index: originalIndex, item})}
+            {render({index: originalIndex, item: items[originalIndex]})}
           </div>
         ))}
       </div>

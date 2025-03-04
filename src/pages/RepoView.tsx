@@ -28,7 +28,6 @@ interface ImageCellProps {
   repo: string
   ref: string
   path: string
-  itemSize: number
 }
 
 const ImageCell = memo(function ImageCell({
@@ -36,7 +35,6 @@ const ImageCell = memo(function ImageCell({
   repo,
   ref,
   path,
-  itemSize,
 }: ImageCellProps) {
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
 
@@ -46,7 +44,6 @@ const ImageCell = memo(function ImageCell({
         src={`https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}`}
         alt={path}
         className="size-full object-contain"
-        style={{width: itemSize, height: itemSize}}
       />
     </div>
   ) : (
@@ -57,7 +54,6 @@ const ImageCell = memo(function ImageCell({
             src={`https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}`}
             alt={path}
             className="size-full object-contain"
-            style={{width: itemSize, height: itemSize}}
           />
         </TooltipTrigger>
         <TooltipContent
@@ -79,7 +75,12 @@ export default function RepoView() {
 
   const [filter] = useFilterQuery()
   const filters = useMemo(() => filter.split(' ').filter(Boolean), [filter])
-  const ITEM_SIZE = 64
+
+  const columnCount = useMemo(() => {
+    const ASPECT_ITEM_SIZE = 64
+    const calculatedColumns = Math.floor(window.innerWidth / ASPECT_ITEM_SIZE)
+    return Math.max(2, Math.min(calculatedColumns, 15))
+  }, [])
 
   useEffect(() => {
     if (owner && repo && !ref) {
@@ -109,14 +110,7 @@ export default function RepoView() {
 
   const itemRenderer = useCallback(
     ({index, item}: RenderData<string>) => (
-      <ImageCell
-        key={index}
-        owner={owner}
-        repo={repo}
-        ref={ref}
-        path={item}
-        itemSize={ITEM_SIZE}
-      />
+      <ImageCell key={index} owner={owner} repo={repo} ref={ref} path={item} />
     ),
     [owner, repo, ref],
   )
@@ -148,10 +142,9 @@ export default function RepoView() {
   return (
     <VirtualizedFlexGrid
       items={filteredImageFiles}
-      itemWidth={ITEM_SIZE}
-      itemHeight={ITEM_SIZE}
-      gap={10}
+      columnCount={columnCount}
       overscan={5}
+      gap={10}
       render={itemRenderer}
     />
   )

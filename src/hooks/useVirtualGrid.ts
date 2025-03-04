@@ -1,27 +1,26 @@
-import {useMemo} from 'react'
-
-interface VirtualGridResult<T> {
-  columnCount: number
+interface VirtualGridResult {
   totalHeight: number
   offsetTop: number
-  visibleItems: {item: T; originalIndex: number}[]
+  visibleIndexs: number[]
 }
 
-function useVirtualGrid<T>(
-  items: T[],
-  visibleHeight: number,
-  scrollOffset: number,
-  itemHeight: number,
+function useVirtualGrid(
+  itemCount: number,
   columnCount: number,
+  visibleHeight: number,
+  itemSize: number,
   gap: number,
+  scrollOffset: number,
   overscan: number,
-): VirtualGridResult<T> {
-  const totalCount = items.length
-  const rowCount = Math.ceil(totalCount / columnCount)
+): VirtualGridResult {
+  const actualItemSize = itemSize + gap
+  const rowCount = Math.ceil(itemCount / columnCount)
 
   // Determine which row is first visible based on scrollTop
-  const visibleStartRow = Math.floor(scrollOffset / (itemHeight + gap))
-  const visibleRowCount = Math.ceil(visibleHeight / (itemHeight + gap)) + 1
+  const visibleStartRow = Math.floor(scrollOffset / actualItemSize)
+  const visibleRowCount = Math.ceil(visibleHeight / actualItemSize) + 1
+
+  const totalHeight = rowCount * actualItemSize - gap
 
   // Apply overscan to extend the render range
   const renderStartRow = Math.max(0, visibleStartRow - overscan)
@@ -31,20 +30,17 @@ function useVirtualGrid<T>(
   )
 
   // Compute the actual items to render based on calculated rows
-  const visibleItems = useMemo(() => {
-    const startIndex = renderStartRow * columnCount
-    const endIndex = Math.min(totalCount, renderEndRow * columnCount)
-    return items.slice(startIndex, endIndex).map((item, index) => ({
-      item,
-      originalIndex: startIndex + index,
-    }))
-  }, [items, renderStartRow, renderEndRow, columnCount, totalCount])
+  const startIndex = renderStartRow * columnCount
+  const endIndex = Math.min(itemCount, renderEndRow * columnCount)
+  const visibleIndexs = Array.from(
+    {length: endIndex - startIndex},
+    (_, i) => startIndex + i,
+  )
 
   return {
-    totalHeight: rowCount * (itemHeight + gap) - gap,
-    offsetTop: renderStartRow * (itemHeight + gap),
-    columnCount,
-    visibleItems,
+    totalHeight,
+    offsetTop: renderStartRow * actualItemSize,
+    visibleIndexs,
   }
 }
 
