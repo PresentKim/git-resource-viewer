@@ -1,20 +1,14 @@
 import {useState, useEffect} from 'react'
+import {observerResize} from '@/utils'
 
 function useHeight(targetRef: React.RefObject<HTMLElement | null>) {
   const [height, setHeight] = useState(0)
 
+  // Update height using ResizeObserver
   useEffect(() => {
-    const element = targetRef.current
-    if (!element) return
-
-    const observer = new ResizeObserver(([target]) =>
-      setHeight(target.contentRect.height),
-    )
-
-    observer.observe(element)
-    return () => {
-      observer.disconnect()
-    }
+    return observerResize(targetRef.current, entry => {
+      setHeight(entry.contentRect.height)
+    })
   }, [targetRef])
 
   return height
