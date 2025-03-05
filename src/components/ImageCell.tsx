@@ -28,7 +28,7 @@ function Image({owner, repo, ref, path}: ImageCellProps) {
   return (
     <>
       <div
-        className="size-full opacity-10 ring-muted-foreground ring-1 rounded-md"
+        className="size-full opacity-5 ring-muted-foreground ring-1 rounded-md p-10"
         style={{display: loading ? 'block' : 'none'}}>
         <LoaderCircleIcon className="size-full object-contain text-muted animate-spin duration-[3s]" />
       </div>
