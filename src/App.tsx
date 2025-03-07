@@ -1,5 +1,5 @@
 import {Suspense, lazy} from 'react'
-import {HashRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import {LoaderIcon} from 'lucide-react'
 
 const BaseLayout = lazy(() => import('@/layout/BaseLayout'))
