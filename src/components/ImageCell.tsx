@@ -14,7 +14,7 @@ interface ImageCellProps {
   path: string
 }
 
-function Image({owner, repo, ref, path}: ImageCellProps) {
+const Image = memo(function Image({owner, repo, ref, path}: ImageCellProps) {
   const [loading, setLoading] = useState(true)
   const imgRef = useRef<HTMLImageElement>(null)
 
@@ -47,7 +47,7 @@ function Image({owner, repo, ref, path}: ImageCellProps) {
       />
     </>
   )
-}
+})
 
 const ImageCell = memo(function ImageCell({
   owner,
