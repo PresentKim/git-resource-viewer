@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState, memo} from 'react'
+import {useCallback, useEffect, useState, useRef, memo} from 'react'
 import {LoaderCircleIcon} from 'lucide-react'
 import {
   Tooltip,
@@ -15,7 +15,8 @@ interface ImageCellProps {
 }
 
 function Image({owner, repo, ref, path}: ImageCellProps) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const imgRef = useRef<HTMLImageElement>(null)
 
   const handleLoad = useCallback(() => {
     setLoading(false)
@@ -23,6 +24,10 @@ function Image({owner, repo, ref, path}: ImageCellProps) {
 
   useEffect(() => {
     setLoading(true)
+    const img = imgRef.current
+    if (img && img.complete) {
+      setLoading(false)
+    }
   }, [path])
 
   return (
@@ -33,6 +38,7 @@ function Image({owner, repo, ref, path}: ImageCellProps) {
         <LoaderCircleIcon className="size-full object-contain text-muted animate-spin duration-[3s]" />
       </div>
       <img
+        ref={imgRef}
         src={`https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}`}
         alt={path}
         className="size-full object-contain"
