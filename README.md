@@ -43,8 +43,8 @@ For more details, refer to the full project overview:
 
 ### CI/CD & Deployment
 
-- **GitHub Actions** – Automates build and deployment pipeline to GitHub Pages.
-- **GitHub Pages** – Static hosting for the project.
+- **GitHub Actions** – Automates linting pipeline.
+- **Vercel** – Automates page build and publish.
 
 ## 📜 License
 

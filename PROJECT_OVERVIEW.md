@@ -3,7 +3,7 @@
 ### 1. Project Introduction
 
 **Git Resource Viewer** is a **single-page web app** for previewing image files from a github repository URL.
-It is deployed via GitHub Pages and utilizes **Lazy Loading** techniques to efficiently explore all images within a repository.
+It is deployed via Vercel and utilizes **Lazy Loading** techniques to efficiently explore all images within a repository.
 
 ### 2. Key Features
 
@@ -52,8 +52,9 @@ It is deployed via GitHub Pages and utilizes **Lazy Loading** techniques to effi
 - **Performance Optimization**: Lazy Loading  
   `react-virtualized` optimizes large-scale image rendering, while the Intersection Observer API ensures that only visible images are loaded, improving efficiency.
 
-- **Deployment**: GitHub Pages + CI/CD  
-  GitHub Pages allows for long-term static hosting without server management, and GitHub Actions automates the CI/CD pipeline for seamless updates upon commits.
+- **Deployment**: Vercel + CI/CD
+  Vercel allows for long-term static hosting without server management,
+  and GitHub integration automates the CI/CD pipeline for seamless updates upon commits.
 
 ### 4. Project Goals
 
@@ -72,8 +73,8 @@ It is deployed via GitHub Pages and utilizes **Lazy Loading** techniques to effi
 
 ### 6. Deployment Strategy
 
-- The application is deployed as a static site using GitHub Pages.
-- CI/CD automation is implemented via GitHub Actions to facilitate seamless updates.
+- The application is deployed as a static site using Vercel.
+- CI/CD automation is implemented via GitHub integration to facilitate seamless updates.
 
 ---
 

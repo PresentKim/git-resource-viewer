@@ -1,9 +1,8 @@
 name: Lint via ESLint and Prettier
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
+    branches: [main]
 
 jobs:
   deploy-github-pages:

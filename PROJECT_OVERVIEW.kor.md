@@ -3,7 +3,7 @@
 ### 1. 프로젝트 소개
 
 **Git Resource Viewer**는 GitHub 레포지토리의 이미지 파일들을 보여주는 **싱글 페이지 웹 앱**입니다.
-GitHub Pages를 통해 배포되며, **Lazy Loading** 기법을 사용하여 레포지토리 내 모든 이미지를 효율적으로 탐색할 수 있도록 개발합니다.
+Vercel를 통해 배포되며, **Lazy Loading** 기법을 사용하여 레포지토리 내 모든 이미지를 효율적으로 탐색할 수 있도록 개발합니다.
 
 ### 2. 주요 기능
 
@@ -51,8 +51,8 @@ GitHub Pages를 통해 배포되며, **Lazy Loading** 기법을 사용하여 레
 - **최적화**: Lazy Loading  
   react-virtualized를 사용하여 대량의 이미지 컴포넌트를 효율적으로 렌더링하며, Intersection Observer 기법을 활용해 화면에 보이는 이미지들만 로드함으로써 성능을 최적화합니다.
 
-- **배포**: GitHub Pages + CI/CD  
-  GitHub Pages를 통해 별도의 서버 관리 없이 반영구적인 서비스 제공이 가능하며, GitHub Actions를 활용하여 커밋 시 자동 배포되는 CI/CD 파이프라인을 구축합니다.
+- **배포**: Vercel + CI/CD
+  Vercel을 통해 별도의 서버 관리 없이 반영구적인 서비스 제공이 가능하며, GitHub와의 연동을 활용하여 커밋 시 자동 배포되는 CI/CD 파이프라인을 구축합니다。
 
 ### 4. 프로젝트 목표
 
@@ -71,5 +71,5 @@ GitHub Pages를 통해 배포되며, **Lazy Loading** 기법을 사용하여 레
 
 ### 6. 배포 방식
 
-- GitHub Pages를 활용하여 정적 사이트로 배포합니다.
-- GitHub Actions를 활용하여 자동 배포(CI/CD) 파이프라인을 구성합니다.
+- Vercel을 활용하여 정적 사이트로 배포합니다.
+- GitHub와의 연동을 통해 자동 배포(CI/CD) 파이프라인을 구성합니다。
