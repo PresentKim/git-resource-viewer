@@ -1,6 +1,6 @@
-# Repo Image Viewer
+# Git Resource Viewer
 
-A react web application for previewing images from a given GitHub repository URL.
+A single-page web app for previewing image files from a github repository URL
 
 ## 🚀 Features
 

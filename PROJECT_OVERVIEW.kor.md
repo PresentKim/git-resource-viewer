@@ -1,8 +1,8 @@
-## 📌 프로젝트 개요: Repo Image Viewer
+## 📌 프로젝트 개요: Git Resource Viewer
 
 ### 1. 프로젝트 소개
 
-**Repo Image Viewer**는 사용자가 입력한 GitHub 레포지토리의 이미지 파일을 불러와 표시하는 **싱글 페이지 웹 애플리케이션**입니다.
+**Git Resource Viewer**는 GitHub 레포지토리의 이미지 파일들을 보여주는 **싱글 페이지 웹 앱**입니다.
 GitHub Pages를 통해 배포되며, **Lazy Loading** 기법을 사용하여 레포지토리 내 모든 이미지를 효율적으로 탐색할 수 있도록 개발합니다.
 
 ### 2. 주요 기능

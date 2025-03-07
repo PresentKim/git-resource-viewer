@@ -1,8 +1,8 @@
-## 📌 Project Overview: Repo Image Viewer
+## 📌 Project Overview: Git Resource Viewer
 
 ### 1. Project Introduction
 
-**Repo Image Viewer** is a **single-page web application** that fetches and displays image files from a specified GitHub repository.
+**Git Resource Viewer** is a **single-page web app** for previewing image files from a github repository URL.
 It is deployed via GitHub Pages and utilizes **Lazy Loading** techniques to efficiently explore all images within a repository.
 
 ### 2. Key Features

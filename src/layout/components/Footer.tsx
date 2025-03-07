@@ -17,11 +17,11 @@ export default function Footer() {
       </a>
       <p>/</p>
       <a
-        href="https://github.com/PresentKim/repo-image-viewer"
+        href="https://github.com/PresentKim/git-resource-viewer"
         target="_blank"
         rel="noopener noreferrer"
         className="hover-underlined">
-        repo-image-viewer
+        git-resource-viewer
       </a>
       <div
         aria-label="Github API rate limit"

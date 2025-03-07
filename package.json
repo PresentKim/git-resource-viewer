@@ -1,8 +1,9 @@
 {
-  "name": "repo-image-viewer",
-  "description": "A react web application for previewing images from a repository",
+  "name": "git-resource-viewer",
+  "description": "A single-page web app for previewing image files from a github repository URL",
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://gitresource.com",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
