@@ -21,9 +21,148 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/favicon-180.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <style>
+      /* Set the body background color to match the theme color */
+      html,
+      body {
+        background-color: #1d1d1d;
+      }
+
+      /* Set the show scrollbar always to prevent the layout shift */
+      html {
+        overflow-y: scroll;
+      }
+
+      /* Hide loading-spinner when root is not empty and not has loading class children */
+      #root:not(:empty):not(:has(.loading)) ~ .loading-spinner {
+        display: none;
+      }
+
+      .loading-spinner {
+        position: absolute;
+        display: inline-block;
+        top: 50%;
+        left: 50%;
+        width: 4rem;
+        height: 4rem;
+        transform: rotate(45deg) translate(-50%, -50%);
+        z-index: 9999;
+      }
+
+      .loading-spinner::before {
+        content: '';
+        box-sizing: border-box;
+        width: 2rem;
+        height: 2rem;
+        position: absolute;
+        left: 0;
+        top: -2rem;
+        animation: spinner-spin 4s ease infinite;
+        z-index: 9999;
+      }
+
+      .loading-spinner::after {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 2rem;
+        height: 2rem;
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.15);
+        animation: spinner-spin2 2s ease infinite;
+        z-index: 9999;
+      }
+
+      @keyframes spinner-spin {
+        0% {
+          box-shadow:
+            0 2rem rgba(255, 255, 255, 0),
+            2rem 2rem rgba(255, 255, 255, 0),
+            2rem 4rem rgba(255, 255, 255, 0),
+            0 4rem rgba(255, 255, 255, 0);
+        }
+        12% {
+          box-shadow:
+            0 2rem white,
+            2rem 2rem rgba(255, 255, 255, 0),
+            2rem 4rem rgba(255, 255, 255, 0),
+            0 4rem rgba(255, 255, 255, 0);
+        }
+        25% {
+          box-shadow:
+            0 2rem white,
+            2rem 2rem white,
+            2rem 4rem rgba(255, 255, 255, 0),
+            0 4rem rgba(255, 255, 255, 0);
+        }
+        37% {
+          box-shadow:
+            0 2rem white,
+            2rem 2rem white,
+            2rem 4rem rgba(255, 255, 255, 0),
+            0 4rem rgba(255, 255, 255, 0);
+        }
+        50% {
+          box-shadow:
+            0 2rem white,
+            2rem 2rem white,
+            2rem 4rem white,
+            0 4rem white;
+        }
+        62% {
+          box-shadow:
+            0 2rem rgba(255, 255, 255, 0),
+            2rem 2rem white,
+            2rem 4rem white,
+            0 4rem white;
+        }
+        75% {
+          box-shadow:
+            0 2rem rgba(255, 255, 255, 0),
+            2rem 2rem rgba(255, 255, 255, 0),
+            2rem 4rem white,
+            0 4rem white;
+        }
+        87% {
+          box-shadow:
+            0 2rem rgba(255, 255, 255, 0),
+            2rem 2rem rgba(255, 255, 255, 0),
+            2rem 4rem rgba(255, 255, 255, 0),
+            0 4rem white;
+        }
+        100% {
+          box-shadow:
+            0 2rem rgba(255, 255, 255, 0),
+            2rem 2rem rgba(255, 255, 255, 0),
+            2rem 4rem rgba(255, 255, 255, 0),
+            0 4rem rgba(255, 255, 255, 0);
+        }
+      }
+
+      @keyframes spinner-spin2 {
+        0% {
+          transform: translate(0, 0) rotateX(0) rotateY(0);
+        }
+        25% {
+          transform: translate(100%, 0) rotateX(0) rotateY(180deg);
+        }
+        50% {
+          transform: translate(100%, 100%) rotateX(-180deg) rotateY(180deg);
+        }
+        75% {
+          transform: translate(0, 100%) rotateX(-180deg) rotateY(360deg);
+        }
+        100% {
+          transform: translate(0, 0) rotateX(0) rotateY(360deg);
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <div id="loading-spinner" class="loading-spinner"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

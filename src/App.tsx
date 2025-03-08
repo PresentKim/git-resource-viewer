@@ -1,6 +1,5 @@
 import {Suspense, lazy} from 'react'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import {LoaderIcon} from 'lucide-react'
 
 const BaseLayout = lazy(() => import('@/layout/BaseLayout'))
 const Home = lazy(() => import('@/pages/Home'))
@@ -10,12 +9,7 @@ const NotFound = lazy(() => import('@/pages/NotFound'))
 
 function App() {
   return (
-    <Suspense
-      fallback={
-        <main className="flex items-center justify-center">
-          <LoaderIcon className="size-16 animate-spin" />
-        </main>
-      }>
+    <Suspense fallback={<div className="loading"></div>}>
       <Router>
         <Routes>
           <Route element={<BaseLayout />}>
