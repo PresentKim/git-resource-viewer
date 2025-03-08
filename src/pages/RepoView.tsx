@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useMemo, useState} from 'react'
-import {GitBranchPlusIcon, ImageIcon, LoaderIcon} from 'lucide-react'
 import {RandomMessageLoader} from '@/components/RandomMessageLoader'
 import {
   VirtualizedFlexGrid,
@@ -69,20 +68,16 @@ export default function RepoView() {
   if (isLoadRef) {
     return (
       <RandomMessageLoader provider={generateBranchFetchMessage}>
-        <div className="flex items-center justify-center gap-2 mt-8 text-lg">
-          <GitBranchPlusIcon />
+        <div className="flex items-center justify-center gap-2 mt-8 text-lg loading">
           loading default branch...
-          <LoaderIcon className="animate-spin" />
         </div>
       </RandomMessageLoader>
     )
   } else if (isLoadImagePaths) {
     return (
       <RandomMessageLoader provider={generateImageFetchMessage}>
-        <div className="flex items-center justify-center gap-2 mt-8 text-lg">
-          <ImageIcon />
+        <div className="flex items-center justify-center gap-2 mt-8 text-lg loading">
           loading images...
-          <LoaderIcon className="animate-spin" />
         </div>
       </RandomMessageLoader>
     )
