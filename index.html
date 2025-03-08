@@ -26,6 +26,9 @@
       html,
       body {
         background-color: #1d1d1d;
+        width: 100%;
+        height: 100%;
+        margin: 0;
       }
 
       /* Set the show scrollbar always to prevent the layout shift */
@@ -34,22 +37,32 @@
       }
 
       /* Hide loading-spinner when root is not empty and not has loading class children */
-      #root:not(:empty):not(:has(.loading)) ~ .loading-spinner {
+      #root:not(:empty):not(:has(.loading)) ~ #loading-spinner-wrapper {
         display: none;
       }
 
-      .loading-spinner {
-        position: absolute;
-        display: inline-block;
-        top: 50%;
-        left: 50%;
-        width: 4rem;
-        height: 4rem;
-        transform: rotate(45deg) translate(-50%, -50%);
+      #loading-spinner-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
         z-index: 9999;
       }
 
-      .loading-spinner::before {
+      #loading-spinner {
+        position: relative;
+        display: inline-block;
+        width: 4rem;
+        height: 4rem;
+        transform: rotate(45deg);
+        transform-origin: center;
+      }
+
+      #loading-spinner::before {
         content: '';
         box-sizing: border-box;
         width: 2rem;
@@ -61,7 +74,7 @@
         z-index: 9999;
       }
 
-      .loading-spinner::after {
+      #loading-spinner::after {
         content: '';
         box-sizing: border-box;
         position: absolute;
@@ -78,31 +91,31 @@
       @keyframes spinner-spin {
         0% {
           box-shadow:
-            0 2rem rgba(255, 255, 255, 0),
-            2rem 2rem rgba(255, 255, 255, 0),
-            2rem 4rem rgba(255, 255, 255, 0),
-            0 4rem rgba(255, 255, 255, 0);
+            0 2rem transparent,
+            2rem 2rem transparent,
+            2rem 4rem transparent,
+            0 4rem transparent;
         }
         12% {
           box-shadow:
             0 2rem white,
-            2rem 2rem rgba(255, 255, 255, 0),
-            2rem 4rem rgba(255, 255, 255, 0),
-            0 4rem rgba(255, 255, 255, 0);
+            2rem 2rem transparent,
+            2rem 4rem transparent,
+            0 4rem transparent;
         }
         25% {
           box-shadow:
             0 2rem white,
             2rem 2rem white,
-            2rem 4rem rgba(255, 255, 255, 0),
-            0 4rem rgba(255, 255, 255, 0);
+            2rem 4rem transparent,
+            0 4rem transparent;
         }
         37% {
           box-shadow:
             0 2rem white,
             2rem 2rem white,
-            2rem 4rem rgba(255, 255, 255, 0),
-            0 4rem rgba(255, 255, 255, 0);
+            2rem 4rem white,
+            0 4rem transparent;
         }
         50% {
           box-shadow:
@@ -113,31 +126,31 @@
         }
         62% {
           box-shadow:
-            0 2rem rgba(255, 255, 255, 0),
+            0 2rem transparent,
             2rem 2rem white,
             2rem 4rem white,
             0 4rem white;
         }
         75% {
           box-shadow:
-            0 2rem rgba(255, 255, 255, 0),
-            2rem 2rem rgba(255, 255, 255, 0),
+            0 2rem transparent,
+            2rem 2rem transparent,
             2rem 4rem white,
             0 4rem white;
         }
         87% {
           box-shadow:
-            0 2rem rgba(255, 255, 255, 0),
-            2rem 2rem rgba(255, 255, 255, 0),
-            2rem 4rem rgba(255, 255, 255, 0),
+            0 2rem transparent,
+            2rem 2rem transparent,
+            2rem 4rem transparent,
             0 4rem white;
         }
         100% {
           box-shadow:
-            0 2rem rgba(255, 255, 255, 0),
-            2rem 2rem rgba(255, 255, 255, 0),
-            2rem 4rem rgba(255, 255, 255, 0),
-            0 4rem rgba(255, 255, 255, 0);
+            0 2rem transparent,
+            2rem 2rem transparent,
+            2rem 4rem transparent,
+            0 4rem transparent;
         }
       }
 
@@ -162,7 +175,9 @@
   </head>
   <body>
     <div id="root"></div>
-    <div id="loading-spinner" class="loading-spinner"></div>
+    <div id="loading-spinner-wrapper">
+      <div id="loading-spinner"></div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
